@@ -1,2 +1,3 @@
-# watch-face-random-image
-Watch Face Random Image
+# Watch Face Random Image
+
+A watch face for Android Wear that displays a different image every time.
