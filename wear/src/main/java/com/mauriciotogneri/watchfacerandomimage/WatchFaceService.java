@@ -106,6 +106,8 @@ public class WatchFaceService extends CanvasWatchFaceService
 
             currentTime.setToNow();
 
+            //-----------------------------------------------------------------------
+
             if (outerSector == null)
             {
                 outerSector = new RectF(bounds);
@@ -114,13 +116,13 @@ public class WatchFaceService extends CanvasWatchFaceService
             if (middleSector == null)
             {
                 middleSector = new RectF(bounds);
-                middleSector.inset(bounds.width() * 0.1f, bounds.height() * 0.1f);
+                middleSector.inset((bounds.width() / 2) * 0.33f, (bounds.height() / 2) * 0.33f);
             }
 
             if (innerSector == null)
             {
                 innerSector = new RectF(bounds);
-                innerSector.inset(bounds.width() * 0.3f, bounds.height() * 0.3f);
+                innerSector.inset((bounds.width() / 2) * 0.66f, (bounds.height() / 2) * 0.66f);
             }
 
             //-----------------------------------------------------------------------
@@ -129,18 +131,24 @@ public class WatchFaceService extends CanvasWatchFaceService
             SimpleDateFormat dateFormat = new SimpleDateFormat("SSS");
             int millisecond = Integer.parseInt(dateFormat.format(date));
 
-            float outerValue = ((currentTime.second + (millisecond / 1000f)) / 60f) * 360f;
-            canvas.drawArc(outerSector, -90, outerValue, true, outerSectorPaint);
+            float seconds = currentTime.second + (millisecond / 1000f);
+            float minutes = currentTime.minute + (seconds / 60f);
+            float hours = currentTime.hour + (minutes / 60f);
 
             //-----------------------------------------------------------------------
 
-            float middleValue = (currentTime.minute / 60f) * 360f;
-            canvas.drawArc(middleSector, -90, middleValue, true, middleSectorPaint);
+            float outerValue = seconds / 60f;
+            canvas.drawArc(outerSector, -90, outerValue * 360f, true, outerSectorPaint);
 
             //-----------------------------------------------------------------------
 
-            float innerValue = (currentTime.hour / 12f) * 360f;
-            canvas.drawArc(innerSector, -90, innerValue, true, innerSectorPaint);
+            float middleValue = minutes / 60f;
+            canvas.drawArc(middleSector, -90, middleValue * 360f, true, middleSectorPaint);
+
+            //-----------------------------------------------------------------------
+
+            float innerValue = hours / 12f;
+            canvas.drawArc(innerSector, -90, innerValue * 360f, true, innerSectorPaint);
 
             //-----------------------------------------------------------------------
 
@@ -152,9 +160,9 @@ public class WatchFaceService extends CanvasWatchFaceService
         private Paint getTextForegroundPaint()
         {
             Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+            paint.setAntiAlias(true);
             paint.setColor(Color.RED);
             paint.setTypeface(NORMAL_TYPEFACE);
-            paint.setAntiAlias(true);
             paint.setTextAlign(Align.CENTER);
             paint.setTextSize(getResources().getDimension(R.dimen.digital_text_size));
 
@@ -164,13 +172,13 @@ public class WatchFaceService extends CanvasWatchFaceService
         private Paint getTextBorderPaint()
         {
             Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+            paint.setAntiAlias(true);
+            paint.setColor(Color.WHITE);
             paint.setStyle(Style.STROKE);
             paint.setStrokeWidth(3);
-            paint.setColor(Color.WHITE);
-            paint.setTextSize(60);
             paint.setTypeface(NORMAL_TYPEFACE);
-            paint.setAntiAlias(true);
             paint.setTextAlign(Align.CENTER);
+            paint.setTextSize(getResources().getDimension(R.dimen.digital_text_size));
 
             return paint;
         }
