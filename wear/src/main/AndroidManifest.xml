@@ -30,11 +30,11 @@
 
             <meta-data
                 android:name="com.google.android.wearable.watchface.preview"
-                android:resource="@drawable/preview_digital"/>
+                android:resource="@drawable/preview_rect"/>
 
             <meta-data
                 android:name="com.google.android.wearable.watchface.preview_circular"
-                android:resource="@drawable/preview_digital_circular"/>
+                android:resource="@drawable/preview_round"/>
 
             <intent-filter>
                 <action android:name="android.service.wallpaper.WallpaperService"/>

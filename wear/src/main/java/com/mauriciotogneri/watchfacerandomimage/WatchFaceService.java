@@ -4,14 +4,13 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Paint.Align;
 import android.graphics.Paint.Style;
 import android.graphics.Rect;
+import android.graphics.RectF;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
@@ -19,20 +18,19 @@ import android.os.Message;
 import android.support.wearable.watchface.CanvasWatchFaceService;
 import android.support.wearable.watchface.WatchFaceStyle;
 import android.text.format.Time;
-import android.util.Log;
 import android.view.SurfaceHolder;
 
 import java.lang.ref.WeakReference;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.TimeZone;
-import java.util.concurrent.TimeUnit;
 
-// https://unsplash.it/400/?random
 // http://developer.android.com/intl/zh-tw/training/wearables/watch-faces/drawing.html
 public class WatchFaceService extends CanvasWatchFaceService
 {
     private static final Typeface NORMAL_TYPEFACE = Typeface.create(Typeface.SANS_SERIF, Typeface.NORMAL);
 
-    private static final long INTERACTIVE_UPDATE_RATE_MS = TimeUnit.SECONDS.toMillis(1);
+    private static final long INTERACTIVE_UPDATE_RATE_MS = 100;
 
     private static final int MSG_UPDATE_TIME = 0;
 
@@ -58,11 +56,20 @@ public class WatchFaceService extends CanvasWatchFaceService
 
         private boolean registeredTimeZoneReceiver = false;
 
-        private Paint foregroundPaint;
-
         private boolean isAmbientMode;
 
         private Time currentTime;
+
+        private Paint textForegroundPaint;
+        private Paint textBorderPaint;
+
+        private Paint outerSectorPaint;
+        private Paint middleSectorPaint;
+        private Paint innerSectorPaint;
+
+        private RectF outerSector;
+        private RectF middleSector;
+        private RectF innerSector;
 
         /**
          * Whether the display supports fewer bits for each color in ambient mode. When true, we
@@ -82,7 +89,11 @@ public class WatchFaceService extends CanvasWatchFaceService
 
             setWatchFaceStyle(builder.build());
 
-            foregroundPaint = createTextPaint();
+            textForegroundPaint = getTextForegroundPaint();
+            textBorderPaint = getTextBorderPaint();
+            outerSectorPaint = getOuterSectorPaint();
+            middleSectorPaint = getMiddleSectorPaint();
+            innerSectorPaint = getInnerSectorPaint();
 
             currentTime = new Time();
         }
@@ -90,29 +101,108 @@ public class WatchFaceService extends CanvasWatchFaceService
         @Override
         public void onDraw(Canvas canvas, Rect bounds)
         {
-            // Draw the background.
-            if (isAmbientMode)
-            {
-                Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.download);
-                Paint paint = new Paint();
-                paint.setFilterBitmap(true);
-                canvas.drawBitmap(bitmap, null, bounds, paint);
-            }
+            // clean canvas
+            canvas.drawColor(Color.BLACK);
 
             currentTime.setToNow();
+
+            if (outerSector == null)
+            {
+                outerSector = new RectF(bounds);
+            }
+
+            if (middleSector == null)
+            {
+                middleSector = new RectF(bounds);
+                middleSector.inset(bounds.width() * 0.1f, bounds.height() * 0.1f);
+            }
+
+            if (innerSector == null)
+            {
+                innerSector = new RectF(bounds);
+                innerSector.inset(bounds.width() * 0.3f, bounds.height() * 0.3f);
+            }
+
+            //-----------------------------------------------------------------------
+
+            Date date = new Date(System.currentTimeMillis());
+            SimpleDateFormat dateFormat = new SimpleDateFormat("SSS");
+            int millisecond = Integer.parseInt(dateFormat.format(date));
+
+            float outerValue = ((currentTime.second + (millisecond / 1000f)) / 60f) * 360f;
+            canvas.drawArc(outerSector, -90, outerValue, true, outerSectorPaint);
+
+            //-----------------------------------------------------------------------
+
+            float middleValue = (currentTime.minute / 60f) * 360f;
+            canvas.drawArc(middleSector, -90, middleValue, true, middleSectorPaint);
+
+            //-----------------------------------------------------------------------
+
+            float innerValue = (currentTime.hour / 12f) * 360f;
+            canvas.drawArc(innerSector, -90, innerValue, true, innerSectorPaint);
+
+            //-----------------------------------------------------------------------
+
             String text = String.format("%d:%02d", currentTime.hour, currentTime.minute);
+            canvas.drawText(text, bounds.centerX(), (int) (bounds.height() - (bounds.height() * 0.1)), textBorderPaint);
+            canvas.drawText(text, bounds.centerX(), (int) (bounds.height() - (bounds.height() * 0.1)), textForegroundPaint);
+        }
 
-            Paint stkPaint = new Paint();
-            stkPaint.setStyle(Style.STROKE);
-            stkPaint.setStrokeWidth(3);
-            stkPaint.setColor(Color.WHITE);
-            stkPaint.setTextSize(60);
-            stkPaint.setTypeface(NORMAL_TYPEFACE);
-            stkPaint.setAntiAlias(true);
-            stkPaint.setTextAlign(Align.CENTER);
-            canvas.drawText(text, bounds.centerX(), (int) (bounds.height() - (bounds.height() * 0.1)), stkPaint);
+        private Paint getTextForegroundPaint()
+        {
+            Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+            paint.setColor(Color.RED);
+            paint.setTypeface(NORMAL_TYPEFACE);
+            paint.setAntiAlias(true);
+            paint.setTextAlign(Align.CENTER);
+            paint.setTextSize(getResources().getDimension(R.dimen.digital_text_size));
 
-            canvas.drawText(text, bounds.centerX(), (int) (bounds.height() - (bounds.height() * 0.1)), foregroundPaint);
+            return paint;
+        }
+
+        private Paint getTextBorderPaint()
+        {
+            Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+            paint.setStyle(Style.STROKE);
+            paint.setStrokeWidth(3);
+            paint.setColor(Color.WHITE);
+            paint.setTextSize(60);
+            paint.setTypeface(NORMAL_TYPEFACE);
+            paint.setAntiAlias(true);
+            paint.setTextAlign(Align.CENTER);
+
+            return paint;
+        }
+
+        private Paint getOuterSectorPaint()
+        {
+            Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+            paint.setAntiAlias(true);
+            paint.setStyle(Style.FILL);
+            paint.setColor(Color.BLUE);
+
+            return paint;
+        }
+
+        private Paint getMiddleSectorPaint()
+        {
+            Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+            paint.setAntiAlias(true);
+            paint.setStyle(Style.FILL);
+            paint.setColor(Color.YELLOW);
+
+            return paint;
+        }
+
+        private Paint getInnerSectorPaint()
+        {
+            Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+            paint.setAntiAlias(true);
+            paint.setStyle(Style.FILL);
+            paint.setColor(Color.GREEN);
+
+            return paint;
         }
 
         @Override
@@ -123,26 +213,10 @@ public class WatchFaceService extends CanvasWatchFaceService
             super.onDestroy();
         }
 
-        private Paint createTextPaint()
-        {
-            Paint paint = new Paint();
-            paint.setColor(Color.GREEN);
-            paint.setTypeface(NORMAL_TYPEFACE);
-            paint.setAntiAlias(true);
-            paint.setTextAlign(Align.CENTER);
-
-            float size = getResources().getDimension(R.dimen.digital_text_size);
-            paint.setTextSize(size);
-
-            return paint;
-        }
-
         @Override
         public void onVisibilityChanged(boolean visible)
         {
             super.onVisibilityChanged(visible);
-
-            Log.e("VISIBILITY", "" + visible);
 
             if (visible)
             {
@@ -212,7 +286,7 @@ public class WatchFaceService extends CanvasWatchFaceService
 
                 if (lowBitAmbient)
                 {
-                    foregroundPaint.setAntiAlias(!inAmbientMode);
+                    textForegroundPaint.setAntiAlias(!inAmbientMode);
                 }
 
                 invalidate();
