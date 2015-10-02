@@ -129,26 +129,17 @@ public class WatchFaceService extends CanvasWatchFaceService
 
             Date date = new Date(System.currentTimeMillis());
             SimpleDateFormat dateFormat = new SimpleDateFormat("SSS");
-            int millisecond = Integer.parseInt(dateFormat.format(date));
 
-            float seconds = currentTime.second + (millisecond / 1000f);
-            float minutes = currentTime.minute + (seconds / 60f);
-            float hours = currentTime.hour + (minutes / 60f);
-
-            //-----------------------------------------------------------------------
-
-            float outerValue = seconds / 60f;
-            canvas.drawArc(outerSector, -90, outerValue * 360f, true, outerSectorPaint);
+            float milliseconds = Integer.parseInt(dateFormat.format(date)) / 1000f;
+            float seconds = (currentTime.second + milliseconds) / 60f;
+            float minutes = (currentTime.minute + seconds) / 60f;
+            float hours = (((currentTime.hour >= 12) ? (currentTime.hour - 12) : currentTime.hour) + minutes) / 12f;
 
             //-----------------------------------------------------------------------
 
-            float middleValue = minutes / 60f;
-            canvas.drawArc(middleSector, -90, middleValue * 360f, true, middleSectorPaint);
-
-            //-----------------------------------------------------------------------
-
-            float innerValue = hours / 12f;
-            canvas.drawArc(innerSector, -90, innerValue * 360f, true, innerSectorPaint);
+            canvas.drawArc(outerSector, -90, seconds * 360f, true, outerSectorPaint);
+            canvas.drawArc(middleSector, -90, minutes * 360f, true, middleSectorPaint);
+            canvas.drawArc(innerSector, -90, hours * 360f, true, innerSectorPaint);
 
             //-----------------------------------------------------------------------
 
@@ -161,7 +152,7 @@ public class WatchFaceService extends CanvasWatchFaceService
         {
             Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
             paint.setAntiAlias(true);
-            paint.setColor(Color.RED);
+            paint.setColor(Color.argb(255, 210, 210, 210));
             paint.setTypeface(NORMAL_TYPEFACE);
             paint.setTextAlign(Align.CENTER);
             paint.setTextSize(getResources().getDimension(R.dimen.digital_text_size));
@@ -188,7 +179,7 @@ public class WatchFaceService extends CanvasWatchFaceService
             Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
             paint.setAntiAlias(true);
             paint.setStyle(Style.FILL);
-            paint.setColor(Color.BLUE);
+            paint.setColor(Color.argb(255, 165, 200, 60));
 
             return paint;
         }
@@ -198,7 +189,7 @@ public class WatchFaceService extends CanvasWatchFaceService
             Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
             paint.setAntiAlias(true);
             paint.setStyle(Style.FILL);
-            paint.setColor(Color.YELLOW);
+            paint.setColor(Color.argb(255, 90, 160, 210));
 
             return paint;
         }
@@ -208,7 +199,7 @@ public class WatchFaceService extends CanvasWatchFaceService
             Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
             paint.setAntiAlias(true);
             paint.setStyle(Style.FILL);
-            paint.setColor(Color.GREEN);
+            paint.setColor(Color.argb(255, 210, 90, 90));
 
             return paint;
         }
