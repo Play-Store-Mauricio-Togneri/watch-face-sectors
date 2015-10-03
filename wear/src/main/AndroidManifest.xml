@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest
-    package="com.mauriciotogneri.watchfacerandomimage"
+    package="com.mauriciotogneri.watchfacesectors"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-feature

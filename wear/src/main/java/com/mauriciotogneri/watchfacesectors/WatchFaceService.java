@@ -1,4 +1,4 @@
-package com.mauriciotogneri.watchfacerandomimage;
+package com.mauriciotogneri.watchfacesectors;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
