@@ -111,6 +111,9 @@ public class WatchFaceService extends CanvasWatchFaceService
             if (outerSector == null)
             {
                 outerSector = new RectF(bounds);
+                float half = Math.max(bounds.width(), bounds.height()) / 2f;
+                float increment = (half * (float) Math.sqrt(2 f)) - half;
+                outerSector.inset(-increment, -increment);
             }
 
             if (middleSector == null)
