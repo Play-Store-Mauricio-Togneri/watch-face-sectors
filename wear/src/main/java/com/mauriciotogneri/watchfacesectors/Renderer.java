@@ -6,10 +6,10 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Paint.Align;
 import android.graphics.Paint.Style;
+import android.graphics.Path;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.Typeface;
-import android.util.Log;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -55,7 +55,7 @@ public class Renderer
         int calendarMinutes = calendar.get(Calendar.MINUTE);
         int calendarHours = calendar.get(Calendar.HOUR_OF_DAY);
 
-        Log.e("DATE", DATE_FORMAT.format(calendar.getTime()));
+        //Log.e("DATE", DATE_FORMAT.format(calendar.getTime()));
 
         float milliseconds = (calendarMilliseconds / 1000f);
         float seconds = (calendarSeconds + milliseconds) / 60f;
@@ -68,16 +68,38 @@ public class Renderer
         drawMiddleSector(canvas, minutes);
         drawInnerSector(canvas, seconds);
 
+        drawMarks(canvas, bounds);
+
         //-----------------------------------------------------------------------
 
         String text = String.format("%d:%02d", calendarHours, calendarMinutes);
-        canvas.drawText(text, bounds.centerX(), (int) (bounds.height() - (bounds.height() * 0.1)), textBorderPaint);
-        canvas.drawText(text, bounds.centerX(), (int) (bounds.height() - (bounds.height() * 0.1)), textForegroundPaint);
+        canvas.drawText(text, bounds.centerX(), (int) (bounds.height() - (bounds.height() * 0.18)), textBorderPaint);
+        canvas.drawText(text, bounds.centerX(), (int) (bounds.height() - (bounds.height() * 0.18)), textForegroundPaint);
     }
 
-    private void drawMarks(Canvas canvas)
+    private void drawMarks(Canvas canvas, Rect bounds)
     {
+        Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        paint.setAntiAlias(true);
+        paint.setStyle(Style.FILL_AND_STROKE);
+        paint.setStrokeWidth(6);
+        paint.setColor(Color.argb(255, 240, 240, 240));
 
+        float radiusExternal = bounds.width();
+        float radiusInternal = bounds.width() / 2.3f;
+
+        // 1
+        for (int i = 0; i < 12; i++)
+        {
+            float angle = (float) Math.toRadians(i * 30);
+            float cos = (float) Math.cos(angle);
+            float sin = (float) Math.sin(angle);
+
+            Path path = new Path();
+            path.moveTo(bounds.centerX() + (radiusExternal * cos), bounds.centerY() + (radiusExternal * sin));
+            path.lineTo(bounds.centerX() + (radiusInternal * cos), bounds.centerY() + (radiusInternal * sin));
+            canvas.drawPath(path, paint);
+        }
     }
 
     private void drawOuterSector(Canvas canvas, float value)
@@ -144,7 +166,7 @@ public class Renderer
         paint.setAntiAlias(true);
         paint.setColor(Color.WHITE);
         paint.setStyle(Style.STROKE);
-        paint.setStrokeWidth(3);
+        paint.setStrokeWidth(2);
         paint.setTypeface(NORMAL_TYPEFACE);
         paint.setTextAlign(Align.CENTER);
         paint.setTextSize(resources.getDimension(R.dimen.digital_text_size));
