@@ -1,9 +1,5 @@
 package com.mauriciotogneri.watchfacesectors;
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.os.Bundle;
@@ -11,11 +7,9 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.wearable.watchface.CanvasWatchFaceService;
 import android.support.wearable.watchface.WatchFaceStyle;
-import android.text.format.Time;
 import android.view.SurfaceHolder;
 
 import java.lang.ref.WeakReference;
-import java.util.TimeZone;
 
 public class WatchFaceService extends CanvasWatchFaceService
 {
@@ -33,19 +27,7 @@ public class WatchFaceService extends CanvasWatchFaceService
     {
         private final Handler updateTimeHandler = new EngineHandler(this);
 
-        private final BroadcastReceiver timeZoneReceiver = new BroadcastReceiver()
-        {
-            @Override
-            public void onReceive(Context context, Intent intent)
-            {
-                currentTime.clear(intent.getStringExtra("time-zone"));
-                currentTime.setToNow();
-            }
-        };
-
-        private boolean registeredTimeZoneReceiver = false;
         private boolean isAmbientMode;
-        private Time currentTime;
         private Renderer renderer;
 
         /**
@@ -67,15 +49,12 @@ public class WatchFaceService extends CanvasWatchFaceService
             setWatchFaceStyle(builder.build());
 
             renderer = new Renderer(getResources());
-            currentTime = new Time();
         }
 
         @Override
         public void onDraw(Canvas canvas, Rect bounds)
         {
-            currentTime.setToNow();
-
-            renderer.onDraw(canvas, bounds, currentTime);
+            renderer.onDraw(canvas, bounds);
         }
 
         @Override
@@ -91,45 +70,9 @@ public class WatchFaceService extends CanvasWatchFaceService
         {
             super.onVisibilityChanged(visible);
 
-            if (visible)
-            {
-                registerReceiver();
-
-                // Update time zone in case it changed while we weren't visible.
-                currentTime.clear(TimeZone.getDefault().getID());
-                currentTime.setToNow();
-            }
-            else
-            {
-                unregisterReceiver();
-            }
-
             // Whether the timer should be running depends on whether we're visible (as well as
             // whether we're in ambient mode), so we may need to start or stop the timer.
             updateTimer();
-        }
-
-        private void registerReceiver()
-        {
-            if (registeredTimeZoneReceiver)
-            {
-                return;
-            }
-
-            registeredTimeZoneReceiver = true;
-            IntentFilter filter = new IntentFilter(Intent.ACTION_TIMEZONE_CHANGED);
-            WatchFaceService.this.registerReceiver(timeZoneReceiver, filter);
-        }
-
-        private void unregisterReceiver()
-        {
-            if (!registeredTimeZoneReceiver)
-            {
-                return;
-            }
-
-            registeredTimeZoneReceiver = false;
-            WatchFaceService.this.unregisterReceiver(timeZoneReceiver);
         }
 
         @Override
