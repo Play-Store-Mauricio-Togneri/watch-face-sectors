@@ -3,6 +3,12 @@
     package="com.mauriciotogneri.watchfacesectors"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <uses-permission
+        android:name="com.google.android.permission.PROVIDE_BACKGROUND"/>
+
+    <uses-permission
+        android:name="android.permission.WAKE_LOCK"/>
+
     <application
         android:allowBackup="true"
         android:fullBackupContent="true"
@@ -15,11 +21,19 @@
             android:label="@string/app_name">
 
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <action android:name="com.mauriciotogneri.watchfacesectors.CONFIG_ANALOG"/>
+                <action android:name="com.mauriciotogneri.watchfacesectors.CONFIG_DIGITAL"/>
+                <action android:name="com.mauriciotogneri.watchfacesectors.CONFIG_CARD_BOUNDS"/>
+
+                <category android:name="com.google.android.wearable.watchface.category.COMPANION_CONFIGURATION"/>
+                <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
 
         </activity>
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version"/>
 
     </application>
 
