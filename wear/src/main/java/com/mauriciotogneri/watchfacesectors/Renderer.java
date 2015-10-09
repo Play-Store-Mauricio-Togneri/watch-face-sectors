@@ -51,41 +51,44 @@ public class Renderer
         drawMiddleSector(canvas, minutes);
         drawInnerSector(canvas, seconds);
 
-        if (profile.hoursMarks)
+        if (profile.hoursMarkOn)
         {
-            drawHoursMarks(canvas, bounds, 2);
+            drawHoursMarks(canvas, bounds);
         }
 
-        if (profile.minutesMarks)
+        if (profile.minutesMarkOn)
         {
-            drawMinutesMarks(canvas, bounds, 1);
+            drawMinutesMarks(canvas, bounds);
         }
 
         //-----------------------------------------------------------------------
 
-        String text = String.format("%d:%02d", calendarHours, calendarMinutes);
-        canvas.drawText(text, bounds.centerX(), (int) (bounds.height() - (bounds.height() * 0.2)), profile.textBorderPaint);
-        canvas.drawText(text, bounds.centerX(), (int) (bounds.height() - (bounds.height() * 0.2)), profile.textForegroundPaint);
+        if (profile.timeOn)
+        {
+            String text = String.format(profile.timeFormat, calendarHours, calendarMinutes);
+            canvas.drawText(text, bounds.centerX(), (int) (bounds.height() - (bounds.height() * 0.2)), profile.textBorderPaint);
+            canvas.drawText(text, bounds.centerX(), (int) (bounds.height() - (bounds.height() * 0.2)), profile.textForegroundPaint);
+        }
     }
 
-    private void drawHoursMarks(Canvas canvas, Rect bounds, float length)
+    private void drawHoursMarks(Canvas canvas, Rect bounds)
     {
         float radiusExternal = bounds.width();
-        float radiusInternal = (bounds.width() / 2f) * ((10f - length) / 10f);
+        float radiusInternal = (bounds.width() / 2f) * ((10f - profile.hoursMarkLength) / 10f);
 
         float centerX = bounds.centerX();
         float centerY = bounds.centerY();
 
         for (int i = 0; i < 12; i++)
         {
-            drawMark(canvas, profile.markHoursPaint, i * 30, radiusExternal, radiusInternal, centerX, centerY);
+            drawMark(canvas, profile.getHoursMarkPaint(), i * 30, radiusExternal, radiusInternal, centerX, centerY);
         }
     }
 
-    private void drawMinutesMarks(Canvas canvas, Rect bounds, float length)
+    private void drawMinutesMarks(Canvas canvas, Rect bounds)
     {
         float radiusExternal = bounds.width();
-        float radiusInternal = (bounds.width() / 2f) * ((10f - length) / 10f);
+        float radiusInternal = (bounds.width() / 2f) * ((10f - profile.minutesMarkLength) / 10f);
 
         float centerX = bounds.centerX();
         float centerY = bounds.centerY();
@@ -96,7 +99,7 @@ public class Renderer
 
             if ((angle % 30) != 0)
             {
-                drawMark(canvas, profile.markMinutesPaint, angle, radiusExternal, radiusInternal, centerX, centerY);
+                drawMark(canvas, profile.getMinutesMarkPaint(), angle, radiusExternal, radiusInternal, centerX, centerY);
             }
         }
     }
@@ -155,7 +158,7 @@ public class Renderer
     {
         if (lowBitAmbient)
         {
-            profile.textForegroundPaint.setAntiAlias(!inAmbientMode);
+            profile.setAntiAlias(!inAmbientMode);
         }
     }
 }

@@ -13,9 +13,20 @@ import java.text.SimpleDateFormat;
 
 public class Profile
 {
-    public boolean hoursMarks = true;
-    public boolean minutesMarks = true;
+    public boolean hoursMarkOn = true;
+    public float hoursMarkLength = 1.5f;
+    public float hoursMarkWidth = 4;
+    public int hoursMarkColor = Color.argb(255, 240, 240, 240);
+    private Paint hoursMarkPaint;
 
+    public boolean minutesMarkOn = true;
+    public float minutesMarkLength = 1;
+    public float minutesMarkWidth = 2;
+    public int minutesMarkColor = Color.argb(255, 255, 0, 255);
+    private Paint minutesMarkPaint;
+
+    public boolean timeOn = true;
+    public String timeFormat = TIME_FORMAT_24;
     public Paint textForegroundPaint;
     public Paint textBorderPaint;
 
@@ -23,25 +34,37 @@ public class Profile
     public Paint middleSectorPaint;
     public Paint innerSectorPaint;
 
-    public Paint markHoursPaint;
-    public Paint markMinutesPaint;
-
     private static final Typeface NORMAL_TYPEFACE = Typeface.create(Typeface.SANS_SERIF, Typeface.NORMAL);
+
+    private static final String TIME_FORMAT_24 = "%d:%02d";
 
     private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
 
     public Profile(Resources resources)
     {
-        textForegroundPaint = getTextForegroundPaint(resources);
-        textBorderPaint = getTextBorderPaint(resources);
+        textForegroundPaint = createTextForegroundPaint(resources);
+        textBorderPaint = createTextBorderPaint(resources);
         outerSectorPaint = getOuterSectorPaint();
         middleSectorPaint = getMiddleSectorPaint();
         innerSectorPaint = getInnerSectorPaint();
-        markHoursPaint = getMarkHoursPaint();
-        markMinutesPaint = getMarkMinutesPaint();
+        hoursMarkPaint = createHoursMarkPaint();
+        minutesMarkPaint = createMinutesMarkPaint();
     }
 
-    private Paint getTextForegroundPaint(Resources resources)
+    public void setAntiAlias(boolean value)
+    {
+        textForegroundPaint.setAntiAlias(value);
+        textBorderPaint.setAntiAlias(value);
+        outerSectorPaint.setAntiAlias(value);
+        middleSectorPaint.setAntiAlias(value);
+        innerSectorPaint.setAntiAlias(value);
+        hoursMarkPaint.setAntiAlias(value);
+        minutesMarkPaint.setAntiAlias(value);
+    }
+
+    // =============================================================================================
+
+    private Paint createTextForegroundPaint(Resources resources)
     {
         Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
         paint.setAntiAlias(true);
@@ -53,7 +76,7 @@ public class Profile
         return paint;
     }
 
-    private Paint getTextBorderPaint(Resources resources)
+    private Paint createTextBorderPaint(Resources resources)
     {
         Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
         paint.setAntiAlias(true);
@@ -97,25 +120,41 @@ public class Profile
         return paint;
     }
 
-    private Paint getMarkHoursPaint()
+    // =============================================================================================
+
+    private Paint createHoursMarkPaint()
     {
         Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
         paint.setAntiAlias(true);
         paint.setStyle(Style.FILL_AND_STROKE);
-        paint.setStrokeWidth(5);
-        paint.setColor(Color.argb(255, 240, 240, 240));
 
         return paint;
     }
 
-    private Paint getMarkMinutesPaint()
+    public Paint getHoursMarkPaint()
+    {
+        hoursMarkPaint.setStrokeWidth(hoursMarkWidth);
+        hoursMarkPaint.setColor(hoursMarkColor);
+
+        return hoursMarkPaint;
+    }
+
+    // =============================================================================================
+
+    private Paint createMinutesMarkPaint()
     {
         Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
         paint.setAntiAlias(true);
         paint.setStyle(Style.FILL_AND_STROKE);
-        paint.setStrokeWidth(3);
-        paint.setColor(Color.argb(255, 255, 0, 255));
 
         return paint;
+    }
+
+    public Paint getMinutesMarkPaint()
+    {
+        minutesMarkPaint.setStrokeWidth(minutesMarkWidth);
+        minutesMarkPaint.setColor(minutesMarkColor);
+
+        return minutesMarkPaint;
     }
 }
