@@ -4,41 +4,24 @@ import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Paint.Align;
-import android.graphics.Paint.Style;
 import android.graphics.Path;
 import android.graphics.Rect;
 import android.graphics.RectF;
-import android.graphics.Typeface;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 // http://developer.android.com/intl/zh-tw/training/wearables/watch-faces/drawing.html
 public class Renderer
 {
-    private Paint textForegroundPaint;
-    private Paint textBorderPaint;
-
-    private Paint outerSectorPaint;
-    private Paint middleSectorPaint;
-    private Paint innerSectorPaint;
+    private final Profile profile;
 
     private RectF outerSector;
     private RectF middleSector;
     private RectF innerSector;
 
-    private static final Typeface NORMAL_TYPEFACE = Typeface.create(Typeface.SANS_SERIF, Typeface.NORMAL);
-
-    private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
-
     public Renderer(Resources resources)
     {
-        textForegroundPaint = getTextForegroundPaint(resources);
-        textBorderPaint = getTextBorderPaint(resources);
-        outerSectorPaint = getOuterSectorPaint();
-        middleSectorPaint = getMiddleSectorPaint();
-        innerSectorPaint = getInnerSectorPaint();
+        profile = new Profile(resources);
     }
 
     public synchronized void onDraw(Canvas canvas, Rect bounds)
@@ -68,53 +51,81 @@ public class Renderer
         drawMiddleSector(canvas, minutes);
         drawInnerSector(canvas, seconds);
 
-        drawMarks(canvas, bounds);
+        if (profile.hoursMarks)
+        {
+            drawHoursMarks(canvas, bounds, 2);
+        }
+
+        if (profile.minutesMarks)
+        {
+            drawMinutesMarks(canvas, bounds, 1);
+        }
 
         //-----------------------------------------------------------------------
 
         String text = String.format("%d:%02d", calendarHours, calendarMinutes);
-        canvas.drawText(text, bounds.centerX(), (int) (bounds.height() - (bounds.height() * 0.18)), textBorderPaint);
-        canvas.drawText(text, bounds.centerX(), (int) (bounds.height() - (bounds.height() * 0.18)), textForegroundPaint);
+        canvas.drawText(text, bounds.centerX(), (int) (bounds.height() - (bounds.height() * 0.2)), profile.textBorderPaint);
+        canvas.drawText(text, bounds.centerX(), (int) (bounds.height() - (bounds.height() * 0.2)), profile.textForegroundPaint);
     }
 
-    private void drawMarks(Canvas canvas, Rect bounds)
+    private void drawHoursMarks(Canvas canvas, Rect bounds, float length)
     {
-        Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        paint.setAntiAlias(true);
-        paint.setStyle(Style.FILL_AND_STROKE);
-        paint.setStrokeWidth(6);
-        paint.setColor(Color.argb(255, 240, 240, 240));
-
         float radiusExternal = bounds.width();
-        float radiusInternal = bounds.width() / 2.3f;
+        float radiusInternal = (bounds.width() / 2f) * ((10f - length) / 10f);
 
-        // 1
+        float centerX = bounds.centerX();
+        float centerY = bounds.centerY();
+
         for (int i = 0; i < 12; i++)
         {
-            float angle = (float) Math.toRadians(i * 30);
-            float cos = (float) Math.cos(angle);
-            float sin = (float) Math.sin(angle);
-
-            Path path = new Path();
-            path.moveTo(bounds.centerX() + (radiusExternal * cos), bounds.centerY() + (radiusExternal * sin));
-            path.lineTo(bounds.centerX() + (radiusInternal * cos), bounds.centerY() + (radiusInternal * sin));
-            canvas.drawPath(path, paint);
+            drawMark(canvas, profile.markHoursPaint, i * 30, radiusExternal, radiusInternal, centerX, centerY);
         }
+    }
+
+    private void drawMinutesMarks(Canvas canvas, Rect bounds, float length)
+    {
+        float radiusExternal = bounds.width();
+        float radiusInternal = (bounds.width() / 2f) * ((10f - length) / 10f);
+
+        float centerX = bounds.centerX();
+        float centerY = bounds.centerY();
+
+        for (int i = 0; i < 60; i++)
+        {
+            int angle = i * 6;
+
+            if ((angle % 30) != 0)
+            {
+                drawMark(canvas, profile.markMinutesPaint, angle, radiusExternal, radiusInternal, centerX, centerY);
+            }
+        }
+    }
+
+    private void drawMark(Canvas canvas, Paint paint, float angle, float radiusExternal, float radiusInternal, float centerX, float centerY)
+    {
+        float finalAngle = (float) Math.toRadians(angle);
+        float cos = (float) Math.cos(finalAngle);
+        float sin = (float) Math.sin(finalAngle);
+
+        Path path = new Path();
+        path.moveTo(centerX + (radiusExternal * cos), centerY + (radiusExternal * sin));
+        path.lineTo(centerX + (radiusInternal * cos), centerY + (radiusInternal * sin));
+        canvas.drawPath(path, paint);
     }
 
     private void drawOuterSector(Canvas canvas, float value)
     {
-        canvas.drawArc(outerSector, -90, value * 360f, true, outerSectorPaint);
+        canvas.drawArc(outerSector, -90, value * 360f, true, profile.outerSectorPaint);
     }
 
     private void drawMiddleSector(Canvas canvas, float value)
     {
-        canvas.drawArc(middleSector, -90, value * 360f, true, middleSectorPaint);
+        canvas.drawArc(middleSector, -90, value * 360f, true, profile.middleSectorPaint);
     }
 
     private void drawInnerSector(Canvas canvas, float value)
     {
-        canvas.drawArc(innerSector, -90, value * 360f, true, innerSectorPaint);
+        canvas.drawArc(innerSector, -90, value * 360f, true, profile.innerSectorPaint);
     }
 
     private void setSectorsBounds(Rect bounds)
@@ -144,63 +155,7 @@ public class Renderer
     {
         if (lowBitAmbient)
         {
-            textForegroundPaint.setAntiAlias(!inAmbientMode);
+            profile.textForegroundPaint.setAntiAlias(!inAmbientMode);
         }
-    }
-
-    private Paint getTextForegroundPaint(Resources resources)
-    {
-        Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        paint.setAntiAlias(true);
-        paint.setColor(Color.argb(255, 210, 210, 210));
-        paint.setTypeface(NORMAL_TYPEFACE);
-        paint.setTextAlign(Align.CENTER);
-        paint.setTextSize(resources.getDimension(R.dimen.digital_text_size));
-
-        return paint;
-    }
-
-    private Paint getTextBorderPaint(Resources resources)
-    {
-        Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        paint.setAntiAlias(true);
-        paint.setColor(Color.WHITE);
-        paint.setStyle(Style.STROKE);
-        paint.setStrokeWidth(2);
-        paint.setTypeface(NORMAL_TYPEFACE);
-        paint.setTextAlign(Align.CENTER);
-        paint.setTextSize(resources.getDimension(R.dimen.digital_text_size));
-
-        return paint;
-    }
-
-    private Paint getOuterSectorPaint()
-    {
-        Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        paint.setAntiAlias(true);
-        paint.setStyle(Style.FILL);
-        paint.setColor(Color.argb(255, 165, 200, 60));
-
-        return paint;
-    }
-
-    private Paint getMiddleSectorPaint()
-    {
-        Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        paint.setAntiAlias(true);
-        paint.setStyle(Style.FILL);
-        paint.setColor(Color.argb(255, 90, 160, 210));
-
-        return paint;
-    }
-
-    private Paint getInnerSectorPaint()
-    {
-        Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        paint.setAntiAlias(true);
-        paint.setStyle(Style.FILL);
-        paint.setColor(Color.argb(255, 210, 90, 90));
-
-        return paint;
     }
 }
