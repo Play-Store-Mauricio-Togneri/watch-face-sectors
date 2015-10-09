@@ -21,24 +21,27 @@ public class Profile
     public boolean minutesMarkOn = true;
     public float minutesMarkLength = 1;
     public float minutesMarkWidth = 2;
-    public int minutesMarkColor = Color.argb(255, 255, 0, 255);
+    public int minutesMarkColor = Color.argb(255, 220, 220, 220);
     private Paint minutesMarkPaint;
 
     // -------------------------------------------------------------------
 
     public boolean timeOn = true;
     public String timeFormat = TIME_FORMAT_24;
+    public float timePosition = 2;
 
     public float timeForegroundSize = 40;
-    public int timeForegroundColor = Color.argb(255, 210, 210, 210);
+    public int timeForegroundColor = Color.argb(255, 220, 220, 220);
 
     public float timeBorderSize = 1;
-    public int timeBorderColor = Color.RED;
+    public int timeBorderColor = Color.argb(255, 150, 150, 150);
 
     private Paint textForegroundPaint;
     private Paint textBorderPaint;
 
     // -------------------------------------------------------------------
+
+    public int backgroundColor = Color.BLACK;
 
     public Paint outerSectorPaint;
     public Paint middleSectorPaint;

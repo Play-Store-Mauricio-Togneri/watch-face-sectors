@@ -1,7 +1,6 @@
 package com.mauriciotogneri.watchfacesectors;
 
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.Rect;
@@ -25,7 +24,7 @@ public class Renderer
 
     public synchronized void onDraw(Canvas canvas, Rect bounds)
     {
-        canvas.drawColor(Color.BLACK);
+        canvas.drawColor(profile.backgroundColor);
 
         setSectorsBounds(bounds);
 
@@ -36,8 +35,6 @@ public class Renderer
         int calendarSeconds = calendar.get(Calendar.SECOND);
         int calendarMinutes = calendar.get(Calendar.MINUTE);
         int calendarHours = calendar.get(Calendar.HOUR_OF_DAY);
-
-        //Log.e("DATE", DATE_FORMAT.format(calendar.getTime()));
 
         float milliseconds = (calendarMilliseconds / 1000f);
         float seconds = (calendarSeconds + milliseconds) / 60f;
@@ -65,8 +62,10 @@ public class Renderer
         if (profile.timeOn)
         {
             String text = String.format(profile.timeFormat, calendarHours, calendarMinutes);
-            canvas.drawText(text, bounds.centerX(), (int) (bounds.height() - (bounds.height() * 0.2)), profile.getTimeBorderPaint());
-            canvas.drawText(text, bounds.centerX(), (int) (bounds.height() - (bounds.height() * 0.2)), profile.getTimeForegroundPaint());
+            float timePosition = bounds.width() * ((10f - profile.timePosition) / 10f);
+
+            canvas.drawText(text, bounds.centerX(), timePosition, profile.getTimeBorderPaint());
+            canvas.drawText(text, bounds.centerX(), timePosition, profile.getTimeForegroundPaint());
         }
     }
 
