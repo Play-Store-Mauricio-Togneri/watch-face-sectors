@@ -1,13 +1,10 @@
 package com.mauriciotogneri.watchfacesectors;
 
-import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Paint.Align;
 import android.graphics.Paint.Style;
 import android.graphics.Typeface;
-
-import com.mauriciotogneri.common.R;
 
 import java.text.SimpleDateFormat;
 
@@ -19,16 +16,29 @@ public class Profile
     public int hoursMarkColor = Color.argb(255, 240, 240, 240);
     private Paint hoursMarkPaint;
 
+    // -------------------------------------------------------------------
+
     public boolean minutesMarkOn = true;
     public float minutesMarkLength = 1;
     public float minutesMarkWidth = 2;
     public int minutesMarkColor = Color.argb(255, 255, 0, 255);
     private Paint minutesMarkPaint;
 
+    // -------------------------------------------------------------------
+
     public boolean timeOn = true;
     public String timeFormat = TIME_FORMAT_24;
-    public Paint textForegroundPaint;
-    public Paint textBorderPaint;
+
+    public float timeForegroundSize = 40;
+    public int timeForegroundColor = Color.argb(255, 210, 210, 210);
+
+    public float timeBorderSize = 1;
+    public int timeBorderColor = Color.RED;
+
+    private Paint textForegroundPaint;
+    private Paint textBorderPaint;
+
+    // -------------------------------------------------------------------
 
     public Paint outerSectorPaint;
     public Paint middleSectorPaint;
@@ -40,10 +50,10 @@ public class Profile
 
     private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
 
-    public Profile(Resources resources)
+    public Profile()
     {
-        textForegroundPaint = createTextForegroundPaint(resources);
-        textBorderPaint = createTextBorderPaint(resources);
+        textForegroundPaint = createTimePaint(Style.FILL);
+        textBorderPaint = createTimePaint(Style.STROKE);
         outerSectorPaint = getOuterSectorPaint();
         middleSectorPaint = getMiddleSectorPaint();
         innerSectorPaint = getInnerSectorPaint();
@@ -64,31 +74,35 @@ public class Profile
 
     // =============================================================================================
 
-    private Paint createTextForegroundPaint(Resources resources)
+    private Paint createTimePaint(Style style)
     {
         Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
         paint.setAntiAlias(true);
-        paint.setColor(Color.argb(255, 210, 210, 210));
+        paint.setStyle(style);
         paint.setTypeface(NORMAL_TYPEFACE);
         paint.setTextAlign(Align.CENTER);
-        paint.setTextSize(resources.getDimension(R.dimen.digital_text_size));
 
         return paint;
     }
 
-    private Paint createTextBorderPaint(Resources resources)
+    public Paint getTimeForegroundPaint()
     {
-        Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        paint.setAntiAlias(true);
-        paint.setColor(Color.WHITE);
-        paint.setStyle(Style.STROKE);
-        paint.setStrokeWidth(2);
-        paint.setTypeface(NORMAL_TYPEFACE);
-        paint.setTextAlign(Align.CENTER);
-        paint.setTextSize(resources.getDimension(R.dimen.digital_text_size));
+        textForegroundPaint.setColor(timeForegroundColor);
+        textForegroundPaint.setTextSize(timeForegroundSize);
 
-        return paint;
+        return textForegroundPaint;
     }
+
+    public Paint getTimeBorderPaint()
+    {
+        textBorderPaint.setColor(timeBorderColor);
+        textBorderPaint.setStrokeWidth(timeBorderSize);
+        textBorderPaint.setTextSize(timeForegroundSize);
+
+        return textBorderPaint;
+    }
+
+    // =============================================================================================
 
     private Paint getOuterSectorPaint()
     {

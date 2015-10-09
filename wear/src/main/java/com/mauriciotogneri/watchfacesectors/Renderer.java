@@ -1,6 +1,5 @@
 package com.mauriciotogneri.watchfacesectors;
 
-import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -19,9 +18,9 @@ public class Renderer
     private RectF middleSector;
     private RectF innerSector;
 
-    public Renderer(Resources resources)
+    public Renderer()
     {
-        profile = new Profile(resources);
+        profile = new Profile();
     }
 
     public synchronized void onDraw(Canvas canvas, Rect bounds)
@@ -66,8 +65,8 @@ public class Renderer
         if (profile.timeOn)
         {
             String text = String.format(profile.timeFormat, calendarHours, calendarMinutes);
-            canvas.drawText(text, bounds.centerX(), (int) (bounds.height() - (bounds.height() * 0.2)), profile.textBorderPaint);
-            canvas.drawText(text, bounds.centerX(), (int) (bounds.height() - (bounds.height() * 0.2)), profile.textForegroundPaint);
+            canvas.drawText(text, bounds.centerX(), (int) (bounds.height() - (bounds.height() * 0.2)), profile.getTimeBorderPaint());
+            canvas.drawText(text, bounds.centerX(), (int) (bounds.height() - (bounds.height() * 0.2)), profile.getTimeForegroundPaint());
         }
     }
 

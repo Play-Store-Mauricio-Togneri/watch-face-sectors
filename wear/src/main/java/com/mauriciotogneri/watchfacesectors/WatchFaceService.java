@@ -48,7 +48,7 @@ public class WatchFaceService extends CanvasWatchFaceService
 
             setWatchFaceStyle(builder.build());
 
-            renderer = new Renderer(getResources());
+            renderer = new Renderer();
         }
 
         @Override
