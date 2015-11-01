@@ -43,9 +43,20 @@ public class Renderer
 
         //-----------------------------------------------------------------------
 
-        drawOuterSector(canvas, hours);
-        drawMiddleSector(canvas, minutes);
-        drawInnerSector(canvas, seconds);
+        if (profile.outerSector)
+        {
+            drawOuterSector(canvas, hours);
+        }
+
+        if (profile.middleSector)
+        {
+            drawMiddleSector(canvas, minutes);
+        }
+
+        if (profile.innerSector)
+        {
+            drawInnerSector(canvas, seconds);
+        }
 
         if (profile.hoursMarkOn)
         {

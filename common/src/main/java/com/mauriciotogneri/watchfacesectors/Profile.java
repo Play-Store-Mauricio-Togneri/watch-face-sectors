@@ -10,6 +10,12 @@ import java.text.SimpleDateFormat;
 
 public class Profile
 {
+    public boolean outerSector = true;
+    public boolean middleSector = true;
+    public boolean innerSector = true;
+
+    // -------------------------------------------------------------------
+
     public boolean hoursMarkOn = true;
     public float hoursMarkLength = 1.5f;
     public float hoursMarkWidth = 4;
