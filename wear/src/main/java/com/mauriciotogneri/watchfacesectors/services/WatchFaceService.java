@@ -1,4 +1,4 @@
-package com.mauriciotogneri.watchfacesectors;
+package com.mauriciotogneri.watchfacesectors.services;
 
 import android.graphics.Canvas;
 import android.graphics.Rect;
@@ -8,6 +8,8 @@ import android.os.Message;
 import android.support.wearable.watchface.CanvasWatchFaceService;
 import android.support.wearable.watchface.WatchFaceStyle;
 import android.view.SurfaceHolder;
+
+import com.mauriciotogneri.watchfacesectors.Renderer;
 
 import java.lang.ref.WeakReference;
 
