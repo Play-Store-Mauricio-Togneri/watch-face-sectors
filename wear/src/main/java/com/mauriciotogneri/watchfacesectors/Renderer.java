@@ -11,7 +11,7 @@ import java.util.Calendar;
 // http://developer.android.com/intl/zh-tw/training/wearables/watch-faces/drawing.html
 public class Renderer
 {
-    private final Profile profile;
+    private ProfileWrapper profileWrapper;
 
     private RectF outerSector;
     private RectF middleSector;
@@ -19,12 +19,12 @@ public class Renderer
 
     public Renderer()
     {
-        profile = new Profile();
+        profileWrapper = new ProfileWrapper(new Profile());
     }
 
     public synchronized void onDraw(Canvas canvas, Rect bounds)
     {
-        canvas.drawColor(profile.backgroundColor);
+        canvas.drawColor(profileWrapper.profile.backgroundColor);
 
         setSectorsBounds(bounds);
 
@@ -43,61 +43,66 @@ public class Renderer
 
         //-----------------------------------------------------------------------
 
-        if (profile.outerSector)
+        if (profileWrapper.profile.outerSector)
         {
             drawOuterSector(canvas, hours);
         }
 
-        if (profile.middleSector)
+        if (profileWrapper.profile.middleSector)
         {
             drawMiddleSector(canvas, minutes);
         }
 
-        if (profile.innerSector)
+        if (profileWrapper.profile.innerSector)
         {
             drawInnerSector(canvas, seconds);
         }
 
-        if (profile.hoursMarkOn)
+        if (profileWrapper.profile.hoursMarkOn)
         {
             drawHoursMarks(canvas, bounds);
         }
 
-        if (profile.minutesMarkOn)
+        if (profileWrapper.profile.minutesMarkOn)
         {
             drawMinutesMarks(canvas, bounds);
         }
 
         //-----------------------------------------------------------------------
 
-        if (profile.timeOn)
+        if (profileWrapper.profile.timeOn)
         {
-            String text = String.format(profile.timeFormat, calendarHours, calendarMinutes);
-            float timePosition = bounds.width() * ((10f - profile.timePosition) / 10f);
+            String text = String.format(profileWrapper.profile.timeFormat, calendarHours, calendarMinutes);
+            float timePosition = bounds.width() * ((10f - profileWrapper.profile.timePosition) / 10f);
 
-            canvas.drawText(text, bounds.centerX(), timePosition, profile.getTimeBorderPaint());
-            canvas.drawText(text, bounds.centerX(), timePosition, profile.getTimeForegroundPaint());
+            canvas.drawText(text, bounds.centerX(), timePosition, profileWrapper.textBorderPaint);
+            canvas.drawText(text, bounds.centerX(), timePosition, profileWrapper.textForegroundPaint);
         }
+    }
+
+    public synchronized void updateProfile(Profile newProfile)
+    {
+        profileWrapper.updateProfile(newProfile);
     }
 
     private void drawHoursMarks(Canvas canvas, Rect bounds)
     {
         float radiusExternal = bounds.width();
-        float radiusInternal = (bounds.width() / 2f) * ((10f - profile.hoursMarkLength) / 10f);
+        float radiusInternal = (bounds.width() / 2f) * ((10f - profileWrapper.profile.hoursMarkLength) / 10f);
 
         float centerX = bounds.centerX();
         float centerY = bounds.centerY();
 
         for (int i = 0; i < 12; i++)
         {
-            drawMark(canvas, profile.getHoursMarkPaint(), i * 30, radiusExternal, radiusInternal, centerX, centerY);
+            drawMark(canvas, profileWrapper.hoursMarkPaint, i * 30, radiusExternal, radiusInternal, centerX, centerY);
         }
     }
 
     private void drawMinutesMarks(Canvas canvas, Rect bounds)
     {
         float radiusExternal = bounds.width();
-        float radiusInternal = (bounds.width() / 2f) * ((10f - profile.minutesMarkLength) / 10f);
+        float radiusInternal = (bounds.width() / 2f) * ((10f - profileWrapper.profile.minutesMarkLength) / 10f);
 
         float centerX = bounds.centerX();
         float centerY = bounds.centerY();
@@ -108,7 +113,7 @@ public class Renderer
 
             if ((angle % 30) != 0)
             {
-                drawMark(canvas, profile.getMinutesMarkPaint(), angle, radiusExternal, radiusInternal, centerX, centerY);
+                drawMark(canvas, profileWrapper.minutesMarkPaint, angle, radiusExternal, radiusInternal, centerX, centerY);
             }
         }
     }
@@ -127,17 +132,17 @@ public class Renderer
 
     private void drawOuterSector(Canvas canvas, float value)
     {
-        canvas.drawArc(outerSector, -90, value * 360f, true, profile.outerSectorPaint);
+        canvas.drawArc(outerSector, -90, value * 360f, true, profileWrapper.outerSectorPaint);
     }
 
     private void drawMiddleSector(Canvas canvas, float value)
     {
-        canvas.drawArc(middleSector, -90, value * 360f, true, profile.middleSectorPaint);
+        canvas.drawArc(middleSector, -90, value * 360f, true, profileWrapper.middleSectorPaint);
     }
 
     private void drawInnerSector(Canvas canvas, float value)
     {
-        canvas.drawArc(innerSector, -90, value * 360f, true, profile.innerSectorPaint);
+        canvas.drawArc(innerSector, -90, value * 360f, true, profileWrapper.innerSectorPaint);
     }
 
     private void setSectorsBounds(Rect bounds)
@@ -167,7 +172,7 @@ public class Renderer
     {
         if (lowBitAmbient)
         {
-            profile.setAntiAlias(!inAmbientMode);
+            profileWrapper.setAntiAlias(!inAmbientMode);
         }
     }
 }

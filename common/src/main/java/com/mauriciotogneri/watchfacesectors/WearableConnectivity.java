@@ -14,6 +14,8 @@ import com.google.android.gms.wearable.Node;
 import com.google.android.gms.wearable.NodeApi;
 import com.google.android.gms.wearable.Wearable;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -98,22 +100,24 @@ public class WearableConnectivity
                 try
                 {
                     NodeApi.GetConnectedNodesResult result = Wearable.NodeApi.getConnectedNodes(apiClient).await();
+                    List<String> nodeIds = new ArrayList<>();
 
                     for (Node node : result.getNodes())
                     {
                         if (node.isNearby())
                         {
-                            onDeviceNodeDetected.onDefaultDeviceNode(node.getId());
-                            return;
+                            nodeIds.add(node.getId());
                         }
                     }
+
+                    onDeviceNodeDetected.onDevicesDetected(nodeIds.toArray(new String[nodeIds.size()]));
                 }
                 catch (Exception e)
                 {
                     e.printStackTrace();
                 }
 
-                onDeviceNodeDetected.onDefaultDeviceNode(null);
+                onDeviceNodeDetected.onDevicesDetected(new String[0]);
             }
         });
     }
@@ -127,6 +131,6 @@ public class WearableConnectivity
 
     public interface OnDeviceNodeDetected
     {
-        void onDefaultDeviceNode(String nodeId);
+        void onDevicesDetected(String[] nodeIds);
     }
 }

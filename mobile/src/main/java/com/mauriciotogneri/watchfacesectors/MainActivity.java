@@ -2,15 +2,19 @@ package com.mauriciotogneri.watchfacesectors;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.text.TextUtils;
+import android.view.View;
 import android.widget.Toast;
 
+import com.mauriciotogneri.watchfacesectors.MessageApi.Paths;
 import com.mauriciotogneri.watchfacesectors.WearableConnectivity.OnDeviceNodeDetected;
 import com.mauriciotogneri.watchfacesectors.WearableConnectivity.WearableEvents;
+import com.mauriciotogneri.watchfacesectors.view.MainView;
+import com.mauriciotogneri.watchfacesectors.view.MainViewObserver;
 
-public class MainActivity extends Activity implements WearableEvents
+public class MainActivity extends Activity implements WearableEvents, MainViewObserver
 {
-    private String nodeId = "";
+    private String[] nodeIds = new String[0];
+    private MainView mainView = null;
     private WearableConnectivity connectivity;
 
     @Override
@@ -18,10 +22,15 @@ public class MainActivity extends Activity implements WearableEvents
     {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.screen_main);
 
         connectivity = new WearableConnectivity(this, this);
         connectivity.connect();
+
+        //View view = ((ViewGroup) this.findViewById(android.R.id.content)).getChildAt(0);
+        //View view = getWindow().getDecorView().findViewById(android.R.id.content);
+        View view = findViewById(android.R.id.content);
+        mainView = new MainView(view, this);
     }
 
     @Override
@@ -30,13 +39,11 @@ public class MainActivity extends Activity implements WearableEvents
         connectivity.getDefaultDeviceNode(new OnDeviceNodeDetected()
         {
             @Override
-            public void onDefaultDeviceNode(String deviceNodeId)
+            public void onDevicesDetected(String[] nodeIdsList)
             {
-                if (!TextUtils.isEmpty(deviceNodeId))
+                if (nodeIdsList.length != 0)
                 {
-                    nodeId = deviceNodeId;
-
-                    connectivity.sendMessage(deviceNodeId, "/test", null, null);
+                    nodeIds = nodeIdsList;
                 }
                 else
                 {
@@ -69,6 +76,15 @@ public class MainActivity extends Activity implements WearableEvents
         if (connectivity != null)
         {
             connectivity.disconnect();
+        }
+    }
+
+    @Override
+    public void onUpdate(Profile profile)
+    {
+        for (String nodeId : nodeIds)
+        {
+            connectivity.sendMessage(nodeId, Paths.UPDATE_PROFILE, Serializer.serialize(profile), null);
         }
     }
 }
