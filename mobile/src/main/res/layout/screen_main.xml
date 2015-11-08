@@ -41,7 +41,7 @@
             android:layout_weight="1"
             android:text="Outer sector color:"/>
 
-        <View
+        <com.mauriciotogneri.watchfacesectors.ColorDisplayer
             android:id="@+id/outerSectorColor"
             android:layout_width="36dp"
             android:layout_height="36dp"
@@ -84,7 +84,7 @@
             android:layout_weight="1"
             android:text="Middle sector color:"/>
 
-        <View
+        <com.mauriciotogneri.watchfacesectors.ColorDisplayer
             android:id="@+id/middleSectorColor"
             android:layout_width="36dp"
             android:layout_height="36dp"
@@ -127,7 +127,7 @@
             android:layout_weight="1"
             android:text="inner sector color:"/>
 
-        <View
+        <com.mauriciotogneri.watchfacesectors.ColorDisplayer
             android:id="@+id/innerSectorColor"
             android:layout_width="36dp"
             android:layout_height="36dp"

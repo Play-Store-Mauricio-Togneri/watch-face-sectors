@@ -5,12 +5,12 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 
+import com.mauriciotogneri.watchfacesectors.ColorDisplayer;
 import com.mauriciotogneri.watchfacesectors.R;
 
 public class ColorPicker
@@ -21,7 +21,7 @@ public class ColorPicker
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.screen_color_picker, null, false);
 
-        final View resultColor = view.findViewById(R.id.resultColor);
+        final ColorDisplayer resultColor = (ColorDisplayer) view.findViewById(R.id.resultColor);
 
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
         alertDialogBuilder.setTitle("Choose a color");
@@ -31,9 +31,7 @@ public class ColorPicker
         {
             public void onClick(DialogInterface dialog, int id)
             {
-                ColorDrawable viewColor = (ColorDrawable) resultColor.getBackground();
-
-                callback.onColorChosen(viewColor.getColor());
+                callback.onColorChosen(resultColor.getDisplayedColor());
             }
         });
 

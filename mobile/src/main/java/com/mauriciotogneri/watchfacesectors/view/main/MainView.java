@@ -1,10 +1,10 @@
 package com.mauriciotogneri.watchfacesectors.view.main;
 
-import android.graphics.drawable.ColorDrawable;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Switch;
 
+import com.mauriciotogneri.watchfacesectors.ColorDisplayer;
 import com.mauriciotogneri.watchfacesectors.Profile;
 import com.mauriciotogneri.watchfacesectors.R;
 import com.mauriciotogneri.watchfacesectors.colorpicker.ColorPicker.ColorPickerCallback;
@@ -31,9 +31,7 @@ public class MainView
             @Override
             public void onClick(final View view)
             {
-                ColorDrawable viewColor = (ColorDrawable) view.getBackground();
-
-                observer.onChooseColor(viewColor.getColor(), new ColorPickerCallback()
+                observer.onChooseColor(ui.outerSectorColor.getDisplayedColor(), new ColorPickerCallback()
                 {
                     @Override
                     public void onColorChosen(int color)
@@ -49,9 +47,7 @@ public class MainView
             @Override
             public void onClick(final View view)
             {
-                ColorDrawable viewColor = (ColorDrawable) view.getBackground();
-
-                observer.onChooseColor(viewColor.getColor(), new ColorPickerCallback()
+                observer.onChooseColor(ui.middleSectorColor.getDisplayedColor(), new ColorPickerCallback()
                 {
                     @Override
                     public void onColorChosen(int color)
@@ -67,9 +63,7 @@ public class MainView
             @Override
             public void onClick(final View view)
             {
-                ColorDrawable viewColor = (ColorDrawable) view.getBackground();
-
-                observer.onChooseColor(viewColor.getColor(), new ColorPickerCallback()
+                observer.onChooseColor(ui.innerSectorColor.getDisplayedColor(), new ColorPickerCallback()
                 {
                     @Override
                     public void onColorChosen(int color)
@@ -84,9 +78,15 @@ public class MainView
     private Profile getProfile()
     {
         Profile profile = new Profile();
+
         profile.outerSector = ui.outerSector.isChecked();
+        profile.outerSectorColor = ui.outerSectorColor.getDisplayedColor();
+
         profile.middleSector = ui.middleSector.isChecked();
+        profile.middleSectorColor = ui.middleSectorColor.getDisplayedColor();
+
         profile.innerSector = ui.innerSector.isChecked();
+        profile.innerSectorColor = ui.innerSectorColor.getDisplayedColor();
 
         return profile;
     }
@@ -94,26 +94,26 @@ public class MainView
     private static class UiContainer
     {
         final Switch outerSector;
-        final View outerSectorColor;
+        final ColorDisplayer outerSectorColor;
 
         final Switch middleSector;
-        final View middleSectorColor;
+        final ColorDisplayer middleSectorColor;
 
         final Switch innerSector;
-        final View innerSectorColor;
+        final ColorDisplayer innerSectorColor;
 
         final View buttonUpdate;
 
         private UiContainer(View view)
         {
             this.outerSector = (Switch) view.findViewById(R.id.outerSector);
-            this.outerSectorColor = view.findViewById(R.id.outerSectorColor);
+            this.outerSectorColor = (ColorDisplayer) view.findViewById(R.id.outerSectorColor);
 
             this.middleSector = (Switch) view.findViewById(R.id.middleSector);
-            this.middleSectorColor = view.findViewById(R.id.middleSectorColor);
+            this.middleSectorColor = (ColorDisplayer) view.findViewById(R.id.middleSectorColor);
 
             this.innerSector = (Switch) view.findViewById(R.id.innerSector);
-            this.innerSectorColor = view.findViewById(R.id.innerSectorColor);
+            this.innerSectorColor = (ColorDisplayer) view.findViewById(R.id.innerSectorColor);
 
             this.buttonUpdate = view.findViewById(R.id.buttonUpdate);
         }
