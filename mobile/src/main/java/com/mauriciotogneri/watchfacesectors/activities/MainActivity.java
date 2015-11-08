@@ -52,16 +52,8 @@ public class MainActivity extends Activity implements WearableEvents, MainViewOb
                 }
                 else
                 {
-                    //                    Handler handler = new Handler(Looper.getMainLooper());
-                    //                    handler.post(new Runnable()
-                    //                    {
-                    //                        @Override
-                    //                        public void run()
-                    //                        {
-                    //                            view.displayData(new ArrayList<Stop>());
-                    //                            view.toast(R.string.error_connection);
-                    //                        }
-                    //                    });
+                    // TODO
+                    //Toast.makeText(MainActivity.this, "NOT CONNECTED!", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -70,6 +62,7 @@ public class MainActivity extends Activity implements WearableEvents, MainViewOb
     @Override
     public void onConnectedFail()
     {
+        // TODO
         Toast.makeText(this, "NOT CONNECTED!", Toast.LENGTH_SHORT).show();
     }
 

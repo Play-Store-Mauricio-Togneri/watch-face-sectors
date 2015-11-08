@@ -11,7 +11,7 @@ import java.util.Calendar;
 // http://developer.android.com/intl/zh-tw/training/wearables/watch-faces/drawing.html
 public class Renderer
 {
-    private ProfileWrapper profileWrapper;
+    private final ProfileWrapper profileWrapper;
 
     private RectF outerSector;
     private RectF middleSector;

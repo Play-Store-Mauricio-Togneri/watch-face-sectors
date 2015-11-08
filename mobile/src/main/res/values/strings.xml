@@ -1,4 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- MAIN SCREEN -->
+    <string name="main.label.outerSector">Outer sector:</string>
+    <string name="main.label.outerSectorColor">Outer sector color:</string>
+
+    <string name="main.label.middleSector">Middle sector:</string>
+    <string name="main.label.middleSectorColor">Middle sector color:</string>
+
+    <string name="main.label.innerSector">Inner sector:</string>
+    <string name="main.label.innerSectorColor">Inner sector color:</string>
+
+    <string name="main.label.hoursMark">Hours mark:</string>
+    <string name="main.label.hoursMarkLength">Hours mark length:</string>
+    <string name="main.label.hoursMarkWidth">Hours mark width:</string>
+    <string name="main.label.hoursMarkColor">Hours mark color:</string>
+
+    <string name="main.label.minutesMark">Minutes mark:</string>
+    <string name="main.label.minutesMarkLength">Minutes mark length:</string>
+    <string name="main.label.minutesMarkWidth">Minutes mark width:</string>
+    <string name="main.label.minutesMarkColor">Minutes mark color:</string>
+
+    <string name="main.button.updateProfile">Update</string>
+
 </resources>

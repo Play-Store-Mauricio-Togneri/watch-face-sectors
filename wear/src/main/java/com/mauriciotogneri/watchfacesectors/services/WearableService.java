@@ -15,7 +15,6 @@ public class WearableService extends WearableListenerService
     @Override
     public void onMessageReceived(MessageEvent messageEvent)
     {
-        String nodeId = messageEvent.getSourceNodeId();
         String path = messageEvent.getPath();
         byte[] payload = messageEvent.getData();
 
