@@ -1,4 +1,4 @@
-package com.mauriciotogneri.watchfacesectors;
+package com.mauriciotogneri.watchfacesectors.activities;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -6,10 +6,15 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.mauriciotogneri.watchfacesectors.MessageApi.Paths;
+import com.mauriciotogneri.watchfacesectors.Profile;
+import com.mauriciotogneri.watchfacesectors.R;
+import com.mauriciotogneri.watchfacesectors.Serializer;
+import com.mauriciotogneri.watchfacesectors.WearableConnectivity;
 import com.mauriciotogneri.watchfacesectors.WearableConnectivity.OnDeviceNodeDetected;
 import com.mauriciotogneri.watchfacesectors.WearableConnectivity.WearableEvents;
-import com.mauriciotogneri.watchfacesectors.view.MainView;
-import com.mauriciotogneri.watchfacesectors.view.MainViewObserver;
+import com.mauriciotogneri.watchfacesectors.colorpicker.ColorPicker;
+import com.mauriciotogneri.watchfacesectors.view.main.MainView;
+import com.mauriciotogneri.watchfacesectors.view.main.MainViewObserver;
 
 public class MainActivity extends Activity implements WearableEvents, MainViewObserver
 {
@@ -86,5 +91,12 @@ public class MainActivity extends Activity implements WearableEvents, MainViewOb
         {
             connectivity.sendMessage(nodeId, Paths.UPDATE_PROFILE, Serializer.serialize(profile), null);
         }
+    }
+
+    @Override
+    public void onChooseColor(int initialColor, ColorPicker.ColorPickerCallback callback)
+    {
+        ColorPicker colorPicker = new ColorPicker();
+        colorPicker.show(this, initialColor, callback);
     }
 }
