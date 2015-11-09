@@ -45,17 +45,50 @@ public class Renderer
 
         if (profileWrapper.profile.outerSector)
         {
-            drawOuterSector(canvas, hours);
+            if (profileWrapper.profile.outerSectorType == ClockHandType.TYPE_HOURS)
+            {
+                drawOuterSector(canvas, hours);
+            }
+            else if (profileWrapper.profile.outerSectorType == ClockHandType.TYPE_MINUTES)
+            {
+                drawOuterSector(canvas, minutes);
+            }
+            else if (profileWrapper.profile.outerSectorType == ClockHandType.TYPE_SECONDS)
+            {
+                drawOuterSector(canvas, seconds);
+            }
         }
 
         if (profileWrapper.profile.middleSector)
         {
-            drawMiddleSector(canvas, minutes);
+            if (profileWrapper.profile.middleSectorType == ClockHandType.TYPE_HOURS)
+            {
+                drawMiddleSector(canvas, hours);
+            }
+            else if (profileWrapper.profile.middleSectorType == ClockHandType.TYPE_MINUTES)
+            {
+                drawMiddleSector(canvas, minutes);
+            }
+            else if (profileWrapper.profile.middleSectorType == ClockHandType.TYPE_SECONDS)
+            {
+                drawMiddleSector(canvas, seconds);
+            }
         }
 
         if (profileWrapper.profile.innerSector)
         {
-            drawInnerSector(canvas, seconds);
+            if (profileWrapper.profile.innerSectorType == ClockHandType.TYPE_HOURS)
+            {
+                drawInnerSector(canvas, hours);
+            }
+            else if (profileWrapper.profile.innerSectorType == ClockHandType.TYPE_MINUTES)
+            {
+                drawInnerSector(canvas, minutes);
+            }
+            else if (profileWrapper.profile.innerSectorType == ClockHandType.TYPE_SECONDS)
+            {
+                drawInnerSector(canvas, seconds);
+            }
         }
 
         if (profileWrapper.profile.hoursMarkOn)

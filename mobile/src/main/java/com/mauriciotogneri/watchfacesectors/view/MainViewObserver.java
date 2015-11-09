@@ -1,4 +1,4 @@
-package com.mauriciotogneri.watchfacesectors.view.main;
+package com.mauriciotogneri.watchfacesectors.view;
 
 import com.mauriciotogneri.watchfacesectors.Profile;
 import com.mauriciotogneri.watchfacesectors.colorpicker.ColorPicker;

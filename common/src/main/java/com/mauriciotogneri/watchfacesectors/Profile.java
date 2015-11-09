@@ -8,12 +8,15 @@ import java.text.SimpleDateFormat;
 public class Profile implements Serializable
 {
     public boolean outerSector = true;
+    public int outerSectorType = ClockHandType.TYPE_HOURS;
     public int outerSectorColor = Color.argb(255, 165, 200, 60);
 
     public boolean middleSector = true;
+    public int middleSectorType = ClockHandType.TYPE_MINUTES;
     public int middleSectorColor = Color.argb(255, 90, 160, 210);
 
     public boolean innerSector = true;
+    public int innerSectorType = ClockHandType.TYPE_SECONDS;
     public int innerSectorColor = Color.argb(255, 210, 90, 90);
 
     // -------------------------------------------------------------------

@@ -3,12 +3,15 @@
 
     <!-- MAIN SCREEN -->
     <string name="main.label.outerSector">Outer sector:</string>
+    <string name="main.label.outerSectorType">Outer sector type:</string>
     <string name="main.label.outerSectorColor">Outer sector color:</string>
 
     <string name="main.label.middleSector">Middle sector:</string>
+    <string name="main.label.middleSectorType">Middle sector type:</string>
     <string name="main.label.middleSectorColor">Middle sector color:</string>
 
     <string name="main.label.innerSector">Inner sector:</string>
+    <string name="main.label.innerSectorType">Inner sector type:</string>
     <string name="main.label.innerSectorColor">Inner sector color:</string>
 
     <string name="main.label.hoursMark">Hours mark:</string>

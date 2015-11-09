@@ -13,8 +13,8 @@ import com.mauriciotogneri.watchfacesectors.WearableConnectivity;
 import com.mauriciotogneri.watchfacesectors.WearableConnectivity.OnDeviceNodeDetected;
 import com.mauriciotogneri.watchfacesectors.WearableConnectivity.WearableEvents;
 import com.mauriciotogneri.watchfacesectors.colorpicker.ColorPicker;
-import com.mauriciotogneri.watchfacesectors.view.main.MainView;
-import com.mauriciotogneri.watchfacesectors.view.main.MainViewObserver;
+import com.mauriciotogneri.watchfacesectors.view.MainView;
+import com.mauriciotogneri.watchfacesectors.view.MainViewObserver;
 
 public class MainActivity extends Activity implements WearableEvents, MainViewObserver
 {

@@ -36,6 +36,20 @@
 
                 <TextView
                     style="@style/main_label"
+                    android:text="@string/main.label.outerSectorType"/>
+
+                <Spinner
+                    android:id="@+id/outerSectorType"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/main_row">
+
+                <TextView
+                    style="@style/main_label"
                     android:text="@string/main.label.outerSectorColor"/>
 
                 <com.mauriciotogneri.watchfacesectors.ColorDisplayer
@@ -43,6 +57,9 @@
                     style="@style/main_colorDisplayer"/>
 
             </LinearLayout>
+
+            <include
+                layout="@layout/horizontal_separator"/>
 
             <LinearLayout
                 style="@style/main_row">
@@ -63,6 +80,20 @@
 
                 <TextView
                     style="@style/main_label"
+                    android:text="@string/main.label.middleSectorType"/>
+
+                <Spinner
+                    android:id="@+id/middleSectorType"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/main_row">
+
+                <TextView
+                    style="@style/main_label"
                     android:text="@string/main.label.middleSectorColor"/>
 
                 <com.mauriciotogneri.watchfacesectors.ColorDisplayer
@@ -70,6 +101,9 @@
                     style="@style/main_colorDisplayer"/>
 
             </LinearLayout>
+
+            <include
+                layout="@layout/horizontal_separator"/>
 
             <LinearLayout
                 style="@style/main_row">
@@ -80,6 +114,20 @@
 
                 <Switch
                     android:id="@+id/innerSector"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/main_row">
+
+                <TextView
+                    style="@style/main_label"
+                    android:text="@string/main.label.innerSectorType"/>
+
+                <Spinner
+                    android:id="@+id/innerSectorType"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 

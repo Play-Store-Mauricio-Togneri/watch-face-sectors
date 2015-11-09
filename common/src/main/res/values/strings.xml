@@ -3,4 +3,9 @@
 
     <string name="app_name">Sectors</string>
 
+    <!-- CLOCK HAND TYPES -->
+    <string name="main.clockHandType.hours">Hours</string>
+    <string name="main.clockHandType.minutes">Minutes</string>
+    <string name="main.clockHandType.seconds">Seconds</string>
+
 </resources>
