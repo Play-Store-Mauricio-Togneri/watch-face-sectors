@@ -3,7 +3,6 @@ package com.mauriciotogneri.watchfacesectors;
 import android.graphics.Color;
 
 import java.io.Serializable;
-import java.text.SimpleDateFormat;
 
 public class Profile implements Serializable
 {
@@ -53,7 +52,7 @@ public class Profile implements Serializable
 
     private static final String TIME_FORMAT_24 = "%d:%02d";
 
-    private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
+    //private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
 
     public Profile()
     {

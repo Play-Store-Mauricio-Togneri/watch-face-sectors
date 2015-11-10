@@ -17,254 +17,44 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <LinearLayout
-                style="@style/main_row">
-
-                <TextView
-                    style="@style/main_label"
-                    android:text="@string/main.label.backgroundColor"/>
-
-                <com.mauriciotogneri.watchfacesectors.ColorDisplayer
-                    android:id="@+id/backgroundColor"
-                    style="@style/main_colorDisplayer"/>
-
-            </LinearLayout>
+            <include
+                layout="@layout/section_background"/>
 
             <include
                 layout="@layout/horizontal_separator"/>
 
-            <LinearLayout
-                style="@style/main_row">
-
-                <TextView
-                    style="@style/main_label"
-                    android:text="@string/main.label.outerSector"/>
-
-                <Switch
-                    android:id="@+id/outerSector"
-                    style="@style/main_switch"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                style="@style/main_row">
-
-                <TextView
-                    style="@style/main_label"
-                    android:text="@string/main.label.outerSectorType"/>
-
-                <Spinner
-                    android:id="@+id/outerSectorType"
-                    style="@style/main_spinner"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                style="@style/main_row">
-
-                <TextView
-                    style="@style/main_label"
-                    android:text="@string/main.label.outerSectorColor"/>
-
-                <com.mauriciotogneri.watchfacesectors.ColorDisplayer
-                    android:id="@+id/outerSectorColor"
-                    style="@style/main_colorDisplayer"/>
-
-            </LinearLayout>
+            <include
+                layout="@layout/section_outer"/>
 
             <include
                 layout="@layout/horizontal_separator"/>
 
-            <LinearLayout
-                style="@style/main_row">
-
-                <TextView
-                    style="@style/main_label"
-                    android:text="@string/main.label.middleSector"/>
-
-                <Switch
-                    android:id="@+id/middleSector"
-                    style="@style/main_switch"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                style="@style/main_row">
-
-                <TextView
-                    style="@style/main_label"
-                    android:text="@string/main.label.middleSectorType"/>
-
-                <Spinner
-                    android:id="@+id/middleSectorType"
-                    style="@style/main_spinner"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                style="@style/main_row">
-
-                <TextView
-                    style="@style/main_label"
-                    android:text="@string/main.label.middleSectorColor"/>
-
-                <com.mauriciotogneri.watchfacesectors.ColorDisplayer
-                    android:id="@+id/middleSectorColor"
-                    style="@style/main_colorDisplayer"/>
-
-            </LinearLayout>
+            <include
+                layout="@layout/section_middle"/>
 
             <include
                 layout="@layout/horizontal_separator"/>
 
-            <LinearLayout
-                style="@style/main_row">
-
-                <TextView
-                    style="@style/main_label"
-                    android:text="@string/main.label.innerSector"/>
-
-                <Switch
-                    android:id="@+id/innerSector"
-                    style="@style/main_switch"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                style="@style/main_row">
-
-                <TextView
-                    style="@style/main_label"
-                    android:text="@string/main.label.innerSectorType"/>
-
-                <Spinner
-                    android:id="@+id/innerSectorType"
-                    style="@style/main_spinner"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                style="@style/main_row">
-
-                <TextView
-                    style="@style/main_label"
-                    android:text="@string/main.label.innerSectorColor"/>
-
-                <com.mauriciotogneri.watchfacesectors.ColorDisplayer
-                    android:id="@+id/innerSectorColor"
-                    style="@style/main_colorDisplayer"/>
-
-            </LinearLayout>
+            <include
+                layout="@layout/section_inner"/>
 
             <include
                 layout="@layout/horizontal_separator"/>
 
-            <LinearLayout
-                style="@style/main_row">
-
-                <TextView
-                    style="@style/main_label"
-                    android:text="@string/main.label.hoursMark"/>
-
-                <Switch
-                    android:id="@+id/hoursMark"
-                    style="@style/main_switch"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                style="@style/main_row">
-
-                <TextView
-                    style="@style/main_label"
-                    android:text="@string/main.label.hoursMarkLength"/>
-
-                <com.mauriciotogneri.watchfacesectors.widgets.NumberInput
-                    android:id="@+id/hoursMarkLength"
-                    style="@style/main_numberInput"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                style="@style/main_row">
-
-                <TextView
-                    style="@style/main_label"
-                    android:text="@string/main.label.hoursMarkWidth"/>
-
-                <com.mauriciotogneri.watchfacesectors.widgets.NumberInput
-                    android:id="@+id/hoursMarkWidth"
-                    style="@style/main_numberInput"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                style="@style/main_row">
-
-                <TextView
-                    style="@style/main_label"
-                    android:text="@string/main.label.hoursMarkColor"/>
-
-                <com.mauriciotogneri.watchfacesectors.ColorDisplayer
-                    android:id="@+id/hoursMarkColor"
-                    style="@style/main_colorDisplayer"/>
-
-            </LinearLayout>
+            <include
+                layout="@layout/section_hours"/>
 
             <include
                 layout="@layout/horizontal_separator"/>
 
-            <LinearLayout
-                style="@style/main_row">
+            <include
+                layout="@layout/section_minutes"/>
 
-                <TextView
-                    style="@style/main_label"
-                    android:text="@string/main.label.minutesMark"/>
+            <include
+                layout="@layout/horizontal_separator"/>
 
-                <Switch
-                    android:id="@+id/minutesMark"
-                    style="@style/main_switch"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                style="@style/main_row">
-
-                <TextView
-                    style="@style/main_label"
-                    android:text="@string/main.label.minutesMarkLength"/>
-
-                <com.mauriciotogneri.watchfacesectors.widgets.NumberInput
-                    android:id="@+id/minutesMarkLength"
-                    style="@style/main_numberInput"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                style="@style/main_row">
-
-                <TextView
-                    style="@style/main_label"
-                    android:text="@string/main.label.minutesMarkWidth"/>
-
-                <com.mauriciotogneri.watchfacesectors.widgets.NumberInput
-                    android:id="@+id/minutesMarkWidth"
-                    style="@style/main_numberInput"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                style="@style/main_row">
-
-                <TextView
-                    style="@style/main_label"
-                    android:text="@string/main.label.minutesMarkColor"/>
-
-                <com.mauriciotogneri.watchfacesectors.ColorDisplayer
-                    android:id="@+id/minutesMarkColor"
-                    style="@style/main_colorDisplayer"/>
-
-            </LinearLayout>
+            <include
+                layout="@layout/section_time"/>
 
         </LinearLayout>
 
@@ -273,7 +63,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
-        android:background="#555555"/>
+        android:background="#888888"/>
 
     <Button
         android:id="@+id/buttonUpdate"

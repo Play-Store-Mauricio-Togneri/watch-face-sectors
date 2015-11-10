@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        style="@style/main_row">
+
+        <TextView
+            style="@style/main_label"
+            android:text="@string/main.label.minutesMark"/>
+
+        <Switch
+            android:id="@+id/minutesMark"
+            style="@style/main_switch"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/main_row">
+
+        <TextView
+            style="@style/main_label"
+            android:text="@string/main.label.minutesMarkLength"/>
+
+        <com.mauriciotogneri.watchfacesectors.widgets.NumberInput
+            android:id="@+id/minutesMarkLength"
+            style="@style/main_numberInput"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/main_row">
+
+        <TextView
+            style="@style/main_label"
+            android:text="@string/main.label.minutesMarkWidth"/>
+
+        <com.mauriciotogneri.watchfacesectors.widgets.NumberInput
+            android:id="@+id/minutesMarkWidth"
+            style="@style/main_numberInput"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/main_row">
+
+        <TextView
+            style="@style/main_label"
+            android:text="@string/main.label.minutesMarkColor"/>
+
+        <com.mauriciotogneri.watchfacesectors.ColorDisplayer
+            android:id="@+id/minutesMarkColor"
+            style="@style/main_colorDisplayer"/>
+
+    </LinearLayout>
+
+</LinearLayout>

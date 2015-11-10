@@ -41,7 +41,7 @@
     <style name="main_colorDisplayer">
         <item name="android:layout_width">36dp</item>
         <item name="android:layout_height">36dp</item>
-        <item name="android:background">#FF0000</item>
+        <item name="android:background">#000000</item>
     </style>
 
 </resources>

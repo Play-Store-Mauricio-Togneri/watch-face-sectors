@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        style="@style/main_row">
+
+        <TextView
+            style="@style/main_label"
+            android:text="@string/main.label.hoursMark"/>
+
+        <Switch
+            android:id="@+id/hoursMark"
+            style="@style/main_switch"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/main_row">
+
+        <TextView
+            style="@style/main_label"
+            android:text="@string/main.label.hoursMarkLength"/>
+
+        <com.mauriciotogneri.watchfacesectors.widgets.NumberInput
+            android:id="@+id/hoursMarkLength"
+            style="@style/main_numberInput"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/main_row">
+
+        <TextView
+            style="@style/main_label"
+            android:text="@string/main.label.hoursMarkWidth"/>
+
+        <com.mauriciotogneri.watchfacesectors.widgets.NumberInput
+            android:id="@+id/hoursMarkWidth"
+            style="@style/main_numberInput"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/main_row">
+
+        <TextView
+            style="@style/main_label"
+            android:text="@string/main.label.hoursMarkColor"/>
+
+        <com.mauriciotogneri.watchfacesectors.ColorDisplayer
+            android:id="@+id/hoursMarkColor"
+            style="@style/main_colorDisplayer"/>
+
+    </LinearLayout>
+
+</LinearLayout>

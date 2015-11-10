@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    style="@style/main_row"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <TextView
+        style="@style/main_label"
+        android:text="@string/main.label.backgroundColor"/>
+
+    <com.mauriciotogneri.watchfacesectors.ColorDisplayer
+        android:id="@+id/backgroundColor"
+        style="@style/main_colorDisplayer"/>
+
+</LinearLayout>
