@@ -2,6 +2,8 @@
 <resources>
 
     <!-- MAIN SCREEN -->
+    <string name="main.label.backgroundColor">Background color:</string>
+
     <string name="main.label.outerSector">Outer sector:</string>
     <string name="main.label.outerSectorType">Outer sector type:</string>
     <string name="main.label.outerSectorColor">Outer sector color:</string>

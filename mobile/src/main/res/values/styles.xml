@@ -20,6 +20,24 @@
         <item name="android:textColor">#555555</item>
     </style>
 
+    <style name="main_switch">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="main_spinner">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="main_numberInput">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:inputType">numberDecimal</item>
+        <item name="android:gravity">right</item>
+        <item name="android:minWidth">60dp</item>
+    </style>
+
     <style name="main_colorDisplayer">
         <item name="android:layout_width">36dp</item>
         <item name="android:layout_height">36dp</item>

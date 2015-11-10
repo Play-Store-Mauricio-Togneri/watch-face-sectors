@@ -9,8 +9,8 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:scrollbarStyle="outsideInset"
-        android:padding="15dp">
+        android:padding="15dp"
+        android:scrollbarStyle="outsideInset">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -22,12 +22,27 @@
 
                 <TextView
                     style="@style/main_label"
+                    android:text="@string/main.label.backgroundColor"/>
+
+                <com.mauriciotogneri.watchfacesectors.ColorDisplayer
+                    android:id="@+id/backgroundColor"
+                    style="@style/main_colorDisplayer"/>
+
+            </LinearLayout>
+
+            <include
+                layout="@layout/horizontal_separator"/>
+
+            <LinearLayout
+                style="@style/main_row">
+
+                <TextView
+                    style="@style/main_label"
                     android:text="@string/main.label.outerSector"/>
 
                 <Switch
                     android:id="@+id/outerSector"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    style="@style/main_switch"/>
 
             </LinearLayout>
 
@@ -40,8 +55,7 @@
 
                 <Spinner
                     android:id="@+id/outerSectorType"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    style="@style/main_spinner"/>
 
             </LinearLayout>
 
@@ -70,8 +84,7 @@
 
                 <Switch
                     android:id="@+id/middleSector"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    style="@style/main_switch"/>
 
             </LinearLayout>
 
@@ -84,8 +97,7 @@
 
                 <Spinner
                     android:id="@+id/middleSectorType"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    style="@style/main_spinner"/>
 
             </LinearLayout>
 
@@ -114,8 +126,7 @@
 
                 <Switch
                     android:id="@+id/innerSector"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    style="@style/main_switch"/>
 
             </LinearLayout>
 
@@ -128,8 +139,7 @@
 
                 <Spinner
                     android:id="@+id/innerSectorType"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    style="@style/main_spinner"/>
 
             </LinearLayout>
 
@@ -158,8 +168,7 @@
 
                 <Switch
                     android:id="@+id/hoursMark"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    style="@style/main_switch"/>
 
             </LinearLayout>
 
@@ -170,11 +179,9 @@
                     style="@style/main_label"
                     android:text="@string/main.label.hoursMarkLength"/>
 
-                <EditText
+                <com.mauriciotogneri.watchfacesectors.widgets.NumberInput
                     android:id="@+id/hoursMarkLength"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:inputType="numberDecimal"/>
+                    style="@style/main_numberInput"/>
 
             </LinearLayout>
 
@@ -185,11 +192,9 @@
                     style="@style/main_label"
                     android:text="@string/main.label.hoursMarkWidth"/>
 
-                <EditText
+                <com.mauriciotogneri.watchfacesectors.widgets.NumberInput
                     android:id="@+id/hoursMarkWidth"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:inputType="numberDecimal"/>
+                    style="@style/main_numberInput"/>
 
             </LinearLayout>
 
@@ -218,8 +223,7 @@
 
                 <Switch
                     android:id="@+id/minutesMark"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    style="@style/main_switch"/>
 
             </LinearLayout>
 
@@ -230,11 +234,9 @@
                     style="@style/main_label"
                     android:text="@string/main.label.minutesMarkLength"/>
 
-                <EditText
+                <com.mauriciotogneri.watchfacesectors.widgets.NumberInput
                     android:id="@+id/minutesMarkLength"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:inputType="numberDecimal"/>
+                    style="@style/main_numberInput"/>
 
             </LinearLayout>
 
@@ -245,11 +247,9 @@
                     style="@style/main_label"
                     android:text="@string/main.label.minutesMarkWidth"/>
 
-                <EditText
+                <com.mauriciotogneri.watchfacesectors.widgets.NumberInput
                     android:id="@+id/minutesMarkWidth"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:inputType="numberDecimal"/>
+                    style="@style/main_numberInput"/>
 
             </LinearLayout>
 

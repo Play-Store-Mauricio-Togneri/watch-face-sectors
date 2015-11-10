@@ -32,8 +32,6 @@ public class MainActivity extends Activity implements WearableEvents, MainViewOb
         connectivity = new WearableConnectivity(this, this);
         connectivity.connect();
 
-        //View view = ((ViewGroup) this.findViewById(android.R.id.content)).getChildAt(0);
-        //View view = getWindow().getDecorView().findViewById(android.R.id.content);
         View view = findViewById(android.R.id.content);
         mainView = new MainView(view, this);
     }

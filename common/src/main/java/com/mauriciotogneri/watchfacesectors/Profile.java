@@ -7,6 +7,10 @@ import java.text.SimpleDateFormat;
 
 public class Profile implements Serializable
 {
+    public int backgroundColor = Color.BLACK;
+
+    // -------------------------------------------------------------------
+
     public boolean outerSector = true;
     public int outerSectorType = ClockHandType.TYPE_HOURS;
     public int outerSectorColor = Color.argb(255, 165, 200, 60);
@@ -46,8 +50,6 @@ public class Profile implements Serializable
     public int timeBorderColor = Color.argb(255, 150, 150, 150);
 
     // -------------------------------------------------------------------
-
-    public int backgroundColor = Color.BLACK;
 
     private static final String TIME_FORMAT_24 = "%d:%02d";
 

@@ -5,7 +5,6 @@ import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Switch;
 
@@ -14,6 +13,7 @@ import com.mauriciotogneri.watchfacesectors.ColorDisplayer;
 import com.mauriciotogneri.watchfacesectors.Profile;
 import com.mauriciotogneri.watchfacesectors.R;
 import com.mauriciotogneri.watchfacesectors.colorpicker.ColorPicker.ColorPickerCallback;
+import com.mauriciotogneri.watchfacesectors.widgets.NumberInput;
 
 public class MainView
 {
@@ -33,6 +33,8 @@ public class MainView
             }
         });
 
+        initializeColorDisplayer(ui.backgroundColor, profile.backgroundColor, observer);
+
         ui.outerSector.setChecked(profile.outerSector);
         initializeClockTypeSpinner(ui.outerSectorType, profile.outerSectorType, 0);
         initializeColorDisplayer(ui.outerSectorColor, profile.outerSectorColor, observer);
@@ -46,13 +48,13 @@ public class MainView
         initializeColorDisplayer(ui.innerSectorColor, profile.innerSectorColor, observer);
 
         ui.hoursMark.setChecked(profile.hoursMarkOn);
-        ui.hoursMarkLength.setText(String.valueOf(profile.hoursMarkLength));
-        ui.hoursMarkWidth.setText(String.valueOf(profile.hoursMarkWidth));
+        ui.hoursMarkLength.setValue(profile.hoursMarkLength);
+        ui.hoursMarkWidth.setValue(profile.hoursMarkWidth);
         initializeColorDisplayer(ui.hoursMarkColor, profile.hoursMarkColor, observer);
 
         ui.minutesMark.setChecked(profile.minutesMarkOn);
-        ui.minutesMarkLength.setText(String.valueOf(profile.minutesMarkLength));
-        ui.minutesMarkWidth.setText(String.valueOf(profile.minutesMarkWidth));
+        ui.minutesMarkLength.setValue(profile.minutesMarkLength);
+        ui.minutesMarkWidth.setValue(profile.minutesMarkWidth);
         initializeColorDisplayer(ui.minutesMarkColor, profile.minutesMarkColor, observer);
     }
 
@@ -151,7 +153,7 @@ public class MainView
         return (ClockHandType) spinner.getSelectedItem();
     }
 
-    private void initializeColorDisplayer(ColorDisplayer colorDisplayer, int initialColor, final MainViewObserver observer)
+    private void initializeColorDisplayer(final ColorDisplayer colorDisplayer, int initialColor, final MainViewObserver observer)
     {
         colorDisplayer.setBackgroundColor(initialColor);
         colorDisplayer.setOnClickListener(new OnClickListener()
@@ -159,7 +161,7 @@ public class MainView
             @Override
             public void onClick(final View view)
             {
-                observer.onChooseColor(ui.hoursMarkColor.getDisplayedColor(), new ColorPickerCallback()
+                observer.onChooseColor(colorDisplayer.getDisplayedColor(), new ColorPickerCallback()
                 {
                     @Override
                     public void onColorChosen(int color)
@@ -173,6 +175,8 @@ public class MainView
 
     private Profile getProfile()
     {
+        profile.backgroundColor = ui.backgroundColor.getDisplayedColor();
+
         profile.outerSector = ui.outerSector.isChecked();
         profile.outerSectorType = getClockHandType(ui.outerSectorType).type;
         profile.outerSectorColor = ui.outerSectorColor.getDisplayedColor();
@@ -186,13 +190,13 @@ public class MainView
         profile.innerSectorColor = ui.innerSectorColor.getDisplayedColor();
 
         profile.hoursMarkOn = ui.hoursMark.isChecked();
-        profile.hoursMarkLength = Float.parseFloat(ui.hoursMarkLength.getText().toString());
-        profile.hoursMarkWidth = Float.parseFloat(ui.hoursMarkWidth.getText().toString());
+        profile.hoursMarkLength = ui.hoursMarkLength.getValue();
+        profile.hoursMarkWidth = ui.hoursMarkWidth.getValue();
         profile.hoursMarkColor = ui.hoursMarkColor.getDisplayedColor();
 
         profile.minutesMarkOn = ui.minutesMark.isChecked();
-        profile.minutesMarkLength = Float.parseFloat(ui.minutesMarkLength.getText().toString());
-        profile.minutesMarkWidth = Float.parseFloat(ui.minutesMarkWidth.getText().toString());
+        profile.minutesMarkLength = ui.minutesMarkLength.getValue();
+        profile.minutesMarkWidth = ui.minutesMarkWidth.getValue();
         profile.minutesMarkColor = ui.minutesMarkColor.getDisplayedColor();
 
         return profile;
@@ -200,6 +204,8 @@ public class MainView
 
     private static class UiContainer
     {
+        final ColorDisplayer backgroundColor;
+
         final Switch outerSector;
         final Spinner outerSectorType;
         final ColorDisplayer outerSectorColor;
@@ -213,19 +219,21 @@ public class MainView
         final ColorDisplayer innerSectorColor;
 
         final Switch hoursMark;
-        final EditText hoursMarkLength;
-        final EditText hoursMarkWidth;
+        final NumberInput hoursMarkLength;
+        final NumberInput hoursMarkWidth;
         final ColorDisplayer hoursMarkColor;
 
         final Switch minutesMark;
-        final EditText minutesMarkLength;
-        final EditText minutesMarkWidth;
+        final NumberInput minutesMarkLength;
+        final NumberInput minutesMarkWidth;
         final ColorDisplayer minutesMarkColor;
 
         final View buttonUpdate;
 
         private UiContainer(View view)
         {
+            this.backgroundColor = (ColorDisplayer) view.findViewById(R.id.backgroundColor);
+
             this.outerSector = (Switch) view.findViewById(R.id.outerSector);
             this.outerSectorType = (Spinner) view.findViewById(R.id.outerSectorType);
             this.outerSectorColor = (ColorDisplayer) view.findViewById(R.id.outerSectorColor);
@@ -239,13 +247,13 @@ public class MainView
             this.innerSectorColor = (ColorDisplayer) view.findViewById(R.id.innerSectorColor);
 
             this.hoursMark = (Switch) view.findViewById(R.id.hoursMark);
-            this.hoursMarkLength = (EditText) view.findViewById(R.id.hoursMarkLength);
-            this.hoursMarkWidth = (EditText) view.findViewById(R.id.hoursMarkWidth);
+            this.hoursMarkLength = (NumberInput) view.findViewById(R.id.hoursMarkLength);
+            this.hoursMarkWidth = (NumberInput) view.findViewById(R.id.hoursMarkWidth);
             this.hoursMarkColor = (ColorDisplayer) view.findViewById(R.id.hoursMarkColor);
 
             this.minutesMark = (Switch) view.findViewById(R.id.minutesMark);
-            this.minutesMarkLength = (EditText) view.findViewById(R.id.minutesMarkLength);
-            this.minutesMarkWidth = (EditText) view.findViewById(R.id.minutesMarkWidth);
+            this.minutesMarkLength = (NumberInput) view.findViewById(R.id.minutesMarkLength);
+            this.minutesMarkWidth = (NumberInput) view.findViewById(R.id.minutesMarkWidth);
             this.minutesMarkColor = (ColorDisplayer) view.findViewById(R.id.minutesMarkColor);
 
             this.buttonUpdate = view.findViewById(R.id.buttonUpdate);
