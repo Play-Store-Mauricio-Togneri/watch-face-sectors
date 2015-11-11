@@ -10,6 +10,7 @@ import android.widget.Switch;
 
 import com.mauriciotogneri.watchfacesectors.ClockHandType;
 import com.mauriciotogneri.watchfacesectors.ColorDisplayer;
+import com.mauriciotogneri.watchfacesectors.Preferences;
 import com.mauriciotogneri.watchfacesectors.Profile;
 import com.mauriciotogneri.watchfacesectors.R;
 import com.mauriciotogneri.watchfacesectors.colorpicker.ColorPicker.ColorPickerCallback;
@@ -18,10 +19,13 @@ import com.mauriciotogneri.watchfacesectors.widgets.NumberInput;
 public class MainView
 {
     private final UiContainer ui;
-    private Profile profile = new Profile();
+    private final Profile profile;
 
     public MainView(View view, final MainViewObserver observer)
     {
+        final Preferences preferences = Preferences.getInstance(view.getContext());
+        this.profile = preferences.getProfile();
+
         this.ui = new UiContainer(view);
 
         this.ui.buttonUpdate.setOnClickListener(new OnClickListener()
@@ -29,7 +33,10 @@ public class MainView
             @Override
             public void onClick(View view)
             {
-                observer.onUpdate(getProfile());
+                Profile profile = getProfile();
+
+                preferences.saveProfile(profile);
+                observer.onUpdate(profile);
             }
         });
 

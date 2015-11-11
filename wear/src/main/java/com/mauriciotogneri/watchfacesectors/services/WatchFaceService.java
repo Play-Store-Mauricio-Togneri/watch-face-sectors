@@ -14,6 +14,7 @@ import android.support.wearable.watchface.WatchFaceStyle;
 import android.view.SurfaceHolder;
 
 import com.mauriciotogneri.watchfacesectors.BroadcastApi.UpdateProfile;
+import com.mauriciotogneri.watchfacesectors.Preferences;
 import com.mauriciotogneri.watchfacesectors.Profile;
 import com.mauriciotogneri.watchfacesectors.Renderer;
 
@@ -56,7 +57,8 @@ public class WatchFaceService extends CanvasWatchFaceService
 
             setWatchFaceStyle(builder.build());
 
-            renderer = new Renderer();
+            final Preferences preferences = Preferences.getInstance(WatchFaceService.this);
+            renderer = new Renderer(preferences.getProfile());
 
             IntentFilter filter = new IntentFilter(UpdateProfile.ACTION);
             registerReceiver(new BroadcastReceiver()
@@ -65,6 +67,8 @@ public class WatchFaceService extends CanvasWatchFaceService
                 public void onReceive(Context context, Intent intent)
                 {
                     Profile profile = (Profile) intent.getSerializableExtra(UpdateProfile.EXTRA_PROFILE);
+                    preferences.saveProfile(profile);
+
                     onProfileUpdated(profile);
                 }
             }, filter);

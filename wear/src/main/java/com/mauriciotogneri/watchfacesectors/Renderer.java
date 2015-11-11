@@ -17,9 +17,9 @@ public class Renderer
     private RectF middleSector;
     private RectF innerSector;
 
-    public Renderer()
+    public Renderer(Profile profile)
     {
-        profileWrapper = new ProfileWrapper(new Profile());
+        profileWrapper = new ProfileWrapper(profile);
     }
 
     public synchronized void onDraw(Canvas canvas, Rect bounds)
@@ -91,14 +91,14 @@ public class Renderer
             }
         }
 
-        if (profileWrapper.profile.hoursMarkOn)
-        {
-            drawHoursMarks(canvas, bounds);
-        }
-
         if (profileWrapper.profile.minutesMarkOn)
         {
             drawMinutesMarks(canvas, bounds);
+        }
+
+        if (profileWrapper.profile.hoursMarkOn)
+        {
+            drawHoursMarks(canvas, bounds);
         }
 
         //-----------------------------------------------------------------------
@@ -144,10 +144,7 @@ public class Renderer
         {
             int angle = i * 6;
 
-            if ((angle % 30) != 0)
-            {
-                drawMark(canvas, profileWrapper.minutesMarkPaint, angle, radiusExternal, radiusInternal, centerX, centerY);
-            }
+            drawMark(canvas, profileWrapper.minutesMarkPaint, angle, radiusExternal, radiusInternal, centerX, centerY);
         }
     }
 

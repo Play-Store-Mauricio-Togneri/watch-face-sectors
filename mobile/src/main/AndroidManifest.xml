@@ -23,13 +23,6 @@
             android:windowSoftInputMode="adjustPan">
 
             <intent-filter>
-                <action android:name="com.mauriciotogneri.watchfacesectors.CONFIG_ANALOG"/>
-                <action android:name="com.mauriciotogneri.watchfacesectors.CONFIG_DIGITAL"/>
-                <action android:name="com.mauriciotogneri.watchfacesectors.CONFIG_CARD_BOUNDS"/>
-
-                <category android:name="com.google.android.wearable.watchface.category.COMPANION_CONFIGURATION"/>
-                <category android:name="android.intent.category.DEFAULT"/>
-
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
