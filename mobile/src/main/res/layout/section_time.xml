@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -40,7 +41,9 @@
 
         <com.mauriciotogneri.watchfacesectors.widgets.NumberInput
             android:id="@+id/timePosition"
-            style="@style/main_numberInput"/>
+            style="@style/main_numberInput"
+            app:maxValue="10"
+            app:minValue="0"/>
 
     </LinearLayout>
 
@@ -53,7 +56,9 @@
 
         <com.mauriciotogneri.watchfacesectors.widgets.NumberInput
             android:id="@+id/timeFontSize"
-            style="@style/main_numberInput"/>
+            style="@style/main_numberInput"
+            app:maxValue="100"
+            app:minValue="0"/>
 
     </LinearLayout>
 
@@ -79,7 +84,9 @@
 
         <com.mauriciotogneri.watchfacesectors.widgets.NumberInput
             android:id="@+id/timeBorderWidth"
-            style="@style/main_numberInput"/>
+            style="@style/main_numberInput"
+            app:maxValue="10"
+            app:minValue="0"/>
 
     </LinearLayout>
 

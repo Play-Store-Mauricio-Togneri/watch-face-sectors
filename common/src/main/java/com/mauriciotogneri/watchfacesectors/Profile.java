@@ -39,18 +39,16 @@ public class Profile implements Serializable
     // -------------------------------------------------------------------
 
     public boolean timeOn = true;
-    public String timeFormat = TIME_FORMAT_24;
-    public float timePosition = 2;
+    public String timeFormat = TimeFormat.TYPE_24H;
+    public float timePosition = 2.22f;
 
-    public float timeForegroundSize = 40;
-    public int timeForegroundColor = Color.argb(255, 220, 220, 220);
+    public float timeFontSize = 40;
+    public int timeFontColor = Color.argb(255, 220, 220, 220);
 
-    public float timeBorderSize = 1;
+    public float timeBorderWidth = 1;
     public int timeBorderColor = Color.argb(255, 150, 150, 150);
 
     // -------------------------------------------------------------------
-
-    private static final String TIME_FORMAT_24 = "%d:%02d";
 
     //private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
 

@@ -22,11 +22,12 @@ public class WearableService extends WearableListenerService
         {
             Profile profile = Serializer.deserialize(payload);
 
-            //Toast.makeText(this, "RECEIVED: " + profile.innerSector, Toast.LENGTH_SHORT).show();
-
-            Intent intent = new Intent(UpdateProfile.ACTION);
-            intent.putExtra(UpdateProfile.EXTRA_PROFILE, profile);
-            sendBroadcast(intent);
+            if (profile != null)
+            {
+                Intent intent = new Intent(UpdateProfile.ACTION);
+                intent.putExtra(UpdateProfile.EXTRA_PROFILE, profile);
+                sendBroadcast(intent);
+            }
         }
     }
 }

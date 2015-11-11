@@ -1,5 +1,6 @@
 package com.mauriciotogneri.watchfacesectors.view;
 
+import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -13,6 +14,7 @@ import com.mauriciotogneri.watchfacesectors.ColorDisplayer;
 import com.mauriciotogneri.watchfacesectors.Preferences;
 import com.mauriciotogneri.watchfacesectors.Profile;
 import com.mauriciotogneri.watchfacesectors.R;
+import com.mauriciotogneri.watchfacesectors.TimeFormat;
 import com.mauriciotogneri.watchfacesectors.colorpicker.ColorPicker.ColorPickerCallback;
 import com.mauriciotogneri.watchfacesectors.widgets.NumberInput;
 
@@ -63,6 +65,34 @@ public class MainView
         ui.minutesMarkLength.setValue(profile.minutesMarkLength);
         ui.minutesMarkWidth.setValue(profile.minutesMarkWidth);
         initializeColorDisplayer(ui.minutesMarkColor, profile.minutesMarkColor, observer);
+
+        ui.time.setChecked(profile.timeOn);
+        initializeTimeFormatSpinner(ui.timeFormat, profile.timeFormat);
+        ui.timePosition.setValue(profile.timePosition);
+        ui.timeFontSize.setValue(profile.timeFontSize);
+        initializeColorDisplayer(ui.timeFontColor, profile.timeFontColor, observer);
+        ui.timeBorderWidth.setValue(profile.timeBorderWidth);
+        initializeColorDisplayer(ui.timeBorderColor, profile.timeBorderColor, observer);
+    }
+
+    private void initializeTimeFormatSpinner(Spinner spinner, String initialValue)
+    {
+        TimeFormat[] types = TimeFormat.getTypes(spinner.getContext());
+
+        ArrayAdapter<TimeFormat> adapter = new ArrayAdapter<>(spinner.getContext(), android.R.layout.simple_spinner_item, types);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+
+        for (int i = 0; i < types.length; i++)
+        {
+            TimeFormat type = types[i];
+
+            if (TextUtils.equals(type.format, initialValue))
+            {
+                spinner.setSelection(i);
+                break;
+            }
+        }
     }
 
     private void initializeClockTypeSpinner(Spinner spinner, int initialValue, final int spinnerPosition)
@@ -160,6 +190,11 @@ public class MainView
         return (ClockHandType) spinner.getSelectedItem();
     }
 
+    private TimeFormat getTimeFormat(Spinner spinner)
+    {
+        return (TimeFormat) spinner.getSelectedItem();
+    }
+
     private void initializeColorDisplayer(final ColorDisplayer colorDisplayer, int initialColor, final MainViewObserver observer)
     {
         colorDisplayer.setBackgroundColor(initialColor);
@@ -206,6 +241,14 @@ public class MainView
         profile.minutesMarkWidth = ui.minutesMarkWidth.getValue();
         profile.minutesMarkColor = ui.minutesMarkColor.getDisplayedColor();
 
+        profile.timeOn = ui.time.isChecked();
+        profile.timeFormat = getTimeFormat(ui.timeFormat).format;
+        profile.timePosition = ui.timePosition.getValue();
+        profile.timeFontSize = ui.timeFontSize.getValue();
+        profile.timeFontColor = ui.timeFontColor.getDisplayedColor();
+        profile.timeBorderWidth = ui.timeBorderWidth.getValue();
+        profile.timeBorderColor = ui.timeBorderColor.getDisplayedColor();
+
         return profile;
     }
 
@@ -235,6 +278,14 @@ public class MainView
         final NumberInput minutesMarkWidth;
         final ColorDisplayer minutesMarkColor;
 
+        final Switch time;
+        final Spinner timeFormat;
+        final NumberInput timePosition;
+        final NumberInput timeFontSize;
+        final ColorDisplayer timeFontColor;
+        final NumberInput timeBorderWidth;
+        final ColorDisplayer timeBorderColor;
+
         final View buttonUpdate;
 
         private UiContainer(View view)
@@ -262,6 +313,14 @@ public class MainView
             this.minutesMarkLength = (NumberInput) view.findViewById(R.id.minutesMarkLength);
             this.minutesMarkWidth = (NumberInput) view.findViewById(R.id.minutesMarkWidth);
             this.minutesMarkColor = (ColorDisplayer) view.findViewById(R.id.minutesMarkColor);
+
+            this.time = (Switch) view.findViewById(R.id.time);
+            this.timeFormat = (Spinner) view.findViewById(R.id.timeFormat);
+            this.timePosition = (NumberInput) view.findViewById(R.id.timePosition);
+            this.timeFontSize = (NumberInput) view.findViewById(R.id.timeFontSize);
+            this.timeFontColor = (ColorDisplayer) view.findViewById(R.id.timeFontColor);
+            this.timeBorderWidth = (NumberInput) view.findViewById(R.id.timeBorderWidth);
+            this.timeBorderColor = (ColorDisplayer) view.findViewById(R.id.timeBorderColor);
 
             this.buttonUpdate = view.findViewById(R.id.buttonUpdate);
         }

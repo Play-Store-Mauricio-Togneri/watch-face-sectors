@@ -31,13 +31,13 @@ public class ProfileWrapper
         profile = newProfile;
 
         textForegroundPaint = createTimePaint(Style.FILL);
-        textForegroundPaint.setColor(profile.timeForegroundColor);
-        textForegroundPaint.setTextSize(profile.timeForegroundSize);
+        textForegroundPaint.setColor(profile.timeFontColor);
+        textForegroundPaint.setTextSize(profile.timeFontSize);
 
         textBorderPaint = createTimePaint(Style.STROKE);
         textBorderPaint.setColor(profile.timeBorderColor);
-        textBorderPaint.setStrokeWidth(profile.timeBorderSize);
-        textBorderPaint.setTextSize(profile.timeForegroundSize);
+        textBorderPaint.setStrokeWidth(profile.timeBorderWidth);
+        textBorderPaint.setTextSize(profile.timeFontSize);
 
         outerSectorPaint = getOuterSectorPaint();
         middleSectorPaint = getMiddleSectorPaint();

@@ -53,6 +53,15 @@ public class Preferences
     {
         byte[] data = get(KEY_PROFILE);
 
-        return (data != null) ? (Profile) Serializer.deserialize(data) : new Profile();
+        if (data != null)
+        {
+            Profile profile = Serializer.deserialize(data);
+
+            return (profile != null) ? profile : new Profile();
+        }
+        else
+        {
+            return new Profile();
+        }
     }
 }
