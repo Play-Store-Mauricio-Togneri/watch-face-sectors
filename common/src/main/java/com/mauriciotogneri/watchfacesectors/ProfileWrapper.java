@@ -12,8 +12,11 @@ public class ProfileWrapper
     public Paint hoursMarkPaint;
     public Paint minutesMarkPaint;
 
-    public Paint textForegroundPaint;
-    public Paint textBorderPaint;
+    public Paint dateForegroundPaint;
+    public Paint dateBorderPaint;
+
+    public Paint timeForegroundPaint;
+    public Paint timeBorderPaint;
 
     public Paint outerSectorPaint;
     public Paint middleSectorPaint;
@@ -30,14 +33,23 @@ public class ProfileWrapper
     {
         profile = newProfile;
 
-        textForegroundPaint = createTimePaint(Style.FILL);
-        textForegroundPaint.setColor(profile.timeFontColor);
-        textForegroundPaint.setTextSize(profile.timeFontSize);
+        dateForegroundPaint = createDatePaint(Style.FILL);
+        dateForegroundPaint.setColor(profile.dateFontColor);
+        dateForegroundPaint.setTextSize(profile.dateFontSize);
 
-        textBorderPaint = createTimePaint(Style.STROKE);
-        textBorderPaint.setColor(profile.timeBorderColor);
-        textBorderPaint.setStrokeWidth(profile.timeBorderWidth);
-        textBorderPaint.setTextSize(profile.timeFontSize);
+        dateBorderPaint = createDatePaint(Style.STROKE);
+        dateBorderPaint.setColor(profile.dateBorderColor);
+        dateBorderPaint.setStrokeWidth(profile.dateBorderWidth);
+        dateBorderPaint.setTextSize(profile.dateFontSize);
+
+        timeForegroundPaint = createTimePaint(Style.FILL);
+        timeForegroundPaint.setColor(profile.timeFontColor);
+        timeForegroundPaint.setTextSize(profile.timeFontSize);
+
+        timeBorderPaint = createTimePaint(Style.STROKE);
+        timeBorderPaint.setColor(profile.timeBorderColor);
+        timeBorderPaint.setStrokeWidth(profile.timeBorderWidth);
+        timeBorderPaint.setTextSize(profile.timeFontSize);
 
         outerSectorPaint = getOuterSectorPaint();
         middleSectorPaint = getMiddleSectorPaint();
@@ -54,8 +66,10 @@ public class ProfileWrapper
 
     public void setAntiAlias(boolean value)
     {
-        textForegroundPaint.setAntiAlias(value);
-        textBorderPaint.setAntiAlias(value);
+        dateForegroundPaint.setAntiAlias(value);
+        dateBorderPaint.setAntiAlias(value);
+        timeForegroundPaint.setAntiAlias(value);
+        timeBorderPaint.setAntiAlias(value);
         outerSectorPaint.setAntiAlias(value);
         middleSectorPaint.setAntiAlias(value);
         innerSectorPaint.setAntiAlias(value);
@@ -64,6 +78,17 @@ public class ProfileWrapper
     }
 
     // =============================================================================================
+
+    private Paint createDatePaint(Style style)
+    {
+        Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        paint.setAntiAlias(true);
+        paint.setStyle(style);
+        paint.setTypeface(NORMAL_TYPEFACE);
+        paint.setTextAlign(Align.CENTER);
+
+        return paint;
+    }
 
     private Paint createTimePaint(Style style)
     {

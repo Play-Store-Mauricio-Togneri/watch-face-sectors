@@ -8,8 +8,4 @@
     <string name="main.clockHandType.minutes">Minutes</string>
     <string name="main.clockHandType.seconds">Seconds</string>
 
-    <!-- TIME FORMAT TYPES -->
-    <string name="main.timeFormat.ampm">AM/PM</string>
-    <string name="main.timeFormat.24h">24H</string>
-
 </resources>

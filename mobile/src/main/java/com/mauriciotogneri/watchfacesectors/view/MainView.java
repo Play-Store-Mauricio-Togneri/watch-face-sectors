@@ -14,8 +14,9 @@ import com.mauriciotogneri.watchfacesectors.ColorDisplayer;
 import com.mauriciotogneri.watchfacesectors.Preferences;
 import com.mauriciotogneri.watchfacesectors.Profile;
 import com.mauriciotogneri.watchfacesectors.R;
-import com.mauriciotogneri.watchfacesectors.TimeFormat;
 import com.mauriciotogneri.watchfacesectors.colorpicker.ColorPicker.ColorPickerCallback;
+import com.mauriciotogneri.watchfacesectors.formats.DateFormat;
+import com.mauriciotogneri.watchfacesectors.formats.TimeFormat;
 import com.mauriciotogneri.watchfacesectors.widgets.NumberInput;
 
 public class MainView
@@ -66,6 +67,14 @@ public class MainView
         ui.minutesMarkWidth.setValue(profile.minutesMarkWidth);
         initializeColorDisplayer(ui.minutesMarkColor, profile.minutesMarkColor, observer);
 
+        ui.date.setChecked(profile.dateOn);
+        initializeDateFormatSpinner(ui.dateFormat, profile.dateFormat);
+        ui.datePosition.setValue(profile.datePosition);
+        ui.dateFontSize.setValue(profile.dateFontSize);
+        initializeColorDisplayer(ui.dateFontColor, profile.dateFontColor, observer);
+        ui.dateBorderWidth.setValue(profile.dateBorderWidth);
+        initializeColorDisplayer(ui.dateBorderColor, profile.dateBorderColor, observer);
+
         ui.time.setChecked(profile.timeOn);
         initializeTimeFormatSpinner(ui.timeFormat, profile.timeFormat);
         ui.timePosition.setValue(profile.timePosition);
@@ -75,9 +84,29 @@ public class MainView
         initializeColorDisplayer(ui.timeBorderColor, profile.timeBorderColor, observer);
     }
 
+    private void initializeDateFormatSpinner(Spinner spinner, String initialValue)
+    {
+        DateFormat[] types = DateFormat.getTypes();
+
+        ArrayAdapter<DateFormat> adapter = new ArrayAdapter<>(spinner.getContext(), android.R.layout.simple_spinner_item, types);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+
+        for (int i = 0; i < types.length; i++)
+        {
+            DateFormat type = types[i];
+
+            if (TextUtils.equals(type.format, initialValue))
+            {
+                spinner.setSelection(i);
+                break;
+            }
+        }
+    }
+
     private void initializeTimeFormatSpinner(Spinner spinner, String initialValue)
     {
-        TimeFormat[] types = TimeFormat.getTypes(spinner.getContext());
+        TimeFormat[] types = TimeFormat.getTypes();
 
         ArrayAdapter<TimeFormat> adapter = new ArrayAdapter<>(spinner.getContext(), android.R.layout.simple_spinner_item, types);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -195,6 +224,11 @@ public class MainView
         return (TimeFormat) spinner.getSelectedItem();
     }
 
+    private DateFormat getDateFormat(Spinner spinner)
+    {
+        return (DateFormat) spinner.getSelectedItem();
+    }
+
     private void initializeColorDisplayer(final ColorDisplayer colorDisplayer, int initialColor, final MainViewObserver observer)
     {
         colorDisplayer.setBackgroundColor(initialColor);
@@ -241,6 +275,14 @@ public class MainView
         profile.minutesMarkWidth = ui.minutesMarkWidth.getValue();
         profile.minutesMarkColor = ui.minutesMarkColor.getDisplayedColor();
 
+        profile.dateOn = ui.date.isChecked();
+        profile.dateFormat = getDateFormat(ui.dateFormat).format;
+        profile.datePosition = ui.datePosition.getValue();
+        profile.dateFontSize = ui.dateFontSize.getValue();
+        profile.dateFontColor = ui.dateFontColor.getDisplayedColor();
+        profile.dateBorderWidth = ui.dateBorderWidth.getValue();
+        profile.dateBorderColor = ui.dateBorderColor.getDisplayedColor();
+
         profile.timeOn = ui.time.isChecked();
         profile.timeFormat = getTimeFormat(ui.timeFormat).format;
         profile.timePosition = ui.timePosition.getValue();
@@ -278,6 +320,14 @@ public class MainView
         final NumberInput minutesMarkWidth;
         final ColorDisplayer minutesMarkColor;
 
+        final Switch date;
+        final Spinner dateFormat;
+        final NumberInput datePosition;
+        final NumberInput dateFontSize;
+        final ColorDisplayer dateFontColor;
+        final NumberInput dateBorderWidth;
+        final ColorDisplayer dateBorderColor;
+
         final Switch time;
         final Spinner timeFormat;
         final NumberInput timePosition;
@@ -313,6 +363,14 @@ public class MainView
             this.minutesMarkLength = (NumberInput) view.findViewById(R.id.minutesMarkLength);
             this.minutesMarkWidth = (NumberInput) view.findViewById(R.id.minutesMarkWidth);
             this.minutesMarkColor = (ColorDisplayer) view.findViewById(R.id.minutesMarkColor);
+
+            this.date = (Switch) view.findViewById(R.id.date);
+            this.dateFormat = (Spinner) view.findViewById(R.id.dateFormat);
+            this.datePosition = (NumberInput) view.findViewById(R.id.datePosition);
+            this.dateFontSize = (NumberInput) view.findViewById(R.id.dateFontSize);
+            this.dateFontColor = (ColorDisplayer) view.findViewById(R.id.dateFontColor);
+            this.dateBorderWidth = (NumberInput) view.findViewById(R.id.dateBorderWidth);
+            this.dateBorderColor = (ColorDisplayer) view.findViewById(R.id.dateBorderColor);
 
             this.time = (Switch) view.findViewById(R.id.time);
             this.timeFormat = (Spinner) view.findViewById(R.id.timeFormat);

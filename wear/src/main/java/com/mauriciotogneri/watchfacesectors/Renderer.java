@@ -5,7 +5,9 @@ import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.Rect;
 import android.graphics.RectF;
-import android.text.TextUtils;
+
+import com.mauriciotogneri.watchfacesectors.formats.DateFormat;
+import com.mauriciotogneri.watchfacesectors.formats.TimeFormat;
 
 import java.util.Calendar;
 
@@ -17,8 +19,6 @@ public class Renderer
     private RectF outerSector;
     private RectF middleSector;
     private RectF innerSector;
-
-    private static final String TIME_FORMAT = "%d:%02d";
 
     public Renderer(Profile profile)
     {
@@ -106,34 +106,30 @@ public class Renderer
 
         //-----------------------------------------------------------------------
 
+        if (profileWrapper.profile.dateOn)
+        {
+            String text = DateFormat.formatDate(profileWrapper.profile.dateFormat, calendar);
+            float datePosition = bounds.width() * ((10f - profileWrapper.profile.datePosition) / 10f);
+
+            if (profileWrapper.profile.dateBorderWidth > 0)
+            {
+                canvas.drawText(text, bounds.centerX(), datePosition, profileWrapper.dateBorderPaint);
+            }
+
+            canvas.drawText(text, bounds.centerX(), datePosition, profileWrapper.dateForegroundPaint);
+        }
+
         if (profileWrapper.profile.timeOn)
         {
-            String text = getTimeText(profileWrapper.profile.timeFormat, calendarHours, calendarMinutes);
+            String text = TimeFormat.formatTime(profileWrapper.profile.timeFormat, calendarHours, calendarMinutes);
             float timePosition = bounds.width() * ((10f - profileWrapper.profile.timePosition) / 10f);
 
-            canvas.drawText(text, bounds.centerX(), timePosition, profileWrapper.textBorderPaint);
-            canvas.drawText(text, bounds.centerX(), timePosition, profileWrapper.textForegroundPaint);
-        }
-    }
+            if (profileWrapper.profile.timeBorderWidth > 0)
+            {
+                canvas.drawText(text, bounds.centerX(), timePosition, profileWrapper.timeBorderPaint);
+            }
 
-    private String getTimeText(String format, int hours, int minutes)
-    {
-        if (TextUtils.equals(format, TimeFormat.TYPE_24H))
-        {
-            return String.format(TIME_FORMAT, hours, minutes);
-        }
-        else if (TextUtils.equals(format, TimeFormat.TYPE_AM_PM))
-        {
-            boolean isPM = hours > 12;
-
-            int finalHours = (isPM) ? (hours - 12) : hours;
-            String meridiemType = (isPM) ? "PM" : "AM";
-
-            return String.format(TIME_FORMAT, finalHours, minutes) + " " + meridiemType;
-        }
-        else
-        {
-            return "";
+            canvas.drawText(text, bounds.centerX(), timePosition, profileWrapper.timeForegroundPaint);
         }
     }
 

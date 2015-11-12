@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        style="@style/main_row">
+
+        <TextView
+            style="@style/main_label"
+            android:text="@string/main.label.date"/>
+
+        <Switch
+            android:id="@+id/date"
+            style="@style/main_switch"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/main_row">
+
+        <TextView
+            style="@style/main_label"
+            android:text="@string/main.label.dateFormat"/>
+
+        <Spinner
+            android:id="@+id/dateFormat"
+            style="@style/main_spinner"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/main_row">
+
+        <TextView
+            style="@style/main_label"
+            android:text="@string/main.label.datePosition"/>
+
+        <com.mauriciotogneri.watchfacesectors.widgets.NumberInput
+            android:id="@+id/datePosition"
+            style="@style/main_numberInput"
+            app:maxValue="10"
+            app:minValue="0"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/main_row">
+
+        <TextView
+            style="@style/main_label"
+            android:text="@string/main.label.dateFontSize"/>
+
+        <com.mauriciotogneri.watchfacesectors.widgets.NumberInput
+            android:id="@+id/dateFontSize"
+            style="@style/main_numberInput"
+            app:maxValue="100"
+            app:minValue="0"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/main_row">
+
+        <TextView
+            style="@style/main_label"
+            android:text="@string/main.label.dateFontColor"/>
+
+        <com.mauriciotogneri.watchfacesectors.ColorDisplayer
+            android:id="@+id/dateFontColor"
+            style="@style/main_colorDisplayer"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/main_row">
+
+        <TextView
+            style="@style/main_label"
+            android:text="@string/main.label.dateBorderWidth"/>
+
+        <com.mauriciotogneri.watchfacesectors.widgets.NumberInput
+            android:id="@+id/dateBorderWidth"
+            style="@style/main_numberInput"
+            app:maxValue="10"
+            app:minValue="0"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/main_row">
+
+        <TextView
+            style="@style/main_label"
+            android:text="@string/main.label.dateBorderColor"/>
+
+        <com.mauriciotogneri.watchfacesectors.ColorDisplayer
+            android:id="@+id/dateBorderColor"
+            style="@style/main_colorDisplayer"/>
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -26,6 +26,14 @@
     <string name="main.label.minutesMarkWidth">Minutes mark width:</string>
     <string name="main.label.minutesMarkColor">Minutes mark color:</string>
 
+    <string name="main.label.date">Date:</string>
+    <string name="main.label.dateFormat">Date format:</string>
+    <string name="main.label.datePosition">Date position:</string>
+    <string name="main.label.dateFontSize">Date font size:</string>
+    <string name="main.label.dateFontColor">Date font color:</string>
+    <string name="main.label.dateBorderWidth">Date border width:</string>
+    <string name="main.label.dateBorderColor">Date border color:</string>
+
     <string name="main.label.time">Time:</string>
     <string name="main.label.timeFormat">Time format:</string>
     <string name="main.label.timePosition">Time position:</string>

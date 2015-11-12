@@ -54,6 +54,12 @@
                 layout="@layout/horizontal_separator"/>
 
             <include
+                layout="@layout/section_date"/>
+
+            <include
+                layout="@layout/horizontal_separator"/>
+
+            <include
                 layout="@layout/section_time"/>
 
         </LinearLayout>
