@@ -10,13 +10,13 @@ import android.widget.Spinner;
 import android.widget.Switch;
 
 import com.mauriciotogneri.watchfacesectors.ClockHandType;
-import com.mauriciotogneri.watchfacesectors.ColorDisplayer;
 import com.mauriciotogneri.watchfacesectors.Preferences;
 import com.mauriciotogneri.watchfacesectors.Profile;
 import com.mauriciotogneri.watchfacesectors.R;
 import com.mauriciotogneri.watchfacesectors.colorpicker.ColorPicker.ColorPickerCallback;
 import com.mauriciotogneri.watchfacesectors.formats.DateFormat;
 import com.mauriciotogneri.watchfacesectors.formats.TimeFormat;
+import com.mauriciotogneri.watchfacesectors.widgets.ColorDisplayer;
 import com.mauriciotogneri.watchfacesectors.widgets.NumberInput;
 
 public class MainView

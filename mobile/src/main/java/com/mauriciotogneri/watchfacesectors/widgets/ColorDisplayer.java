@@ -1,4 +1,4 @@
-package com.mauriciotogneri.watchfacesectors;
+package com.mauriciotogneri.watchfacesectors.widgets;
 
 import android.content.Context;
 import android.graphics.drawable.ColorDrawable;

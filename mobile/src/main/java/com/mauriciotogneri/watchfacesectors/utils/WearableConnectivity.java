@@ -1,4 +1,4 @@
-package com.mauriciotogneri.watchfacesectors;
+package com.mauriciotogneri.watchfacesectors.utils;
 
 import android.content.Context;
 import android.os.Bundle;

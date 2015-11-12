@@ -5,10 +5,10 @@ import android.text.TextUtils;
 
 import com.google.android.gms.wearable.MessageEvent;
 import com.google.android.gms.wearable.WearableListenerService;
-import com.mauriciotogneri.watchfacesectors.BroadcastApi.UpdateProfile;
 import com.mauriciotogneri.watchfacesectors.MessageApi.Paths;
 import com.mauriciotogneri.watchfacesectors.Profile;
 import com.mauriciotogneri.watchfacesectors.Serializer;
+import com.mauriciotogneri.watchfacesectors.broadcast.BroadcastApi.UpdateProfile;
 
 public class WearableService extends WearableListenerService
 {

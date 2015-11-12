@@ -13,10 +13,10 @@ import android.support.wearable.watchface.CanvasWatchFaceService;
 import android.support.wearable.watchface.WatchFaceStyle;
 import android.view.SurfaceHolder;
 
-import com.mauriciotogneri.watchfacesectors.BroadcastApi.UpdateProfile;
 import com.mauriciotogneri.watchfacesectors.Preferences;
 import com.mauriciotogneri.watchfacesectors.Profile;
-import com.mauriciotogneri.watchfacesectors.Renderer;
+import com.mauriciotogneri.watchfacesectors.broadcast.BroadcastApi.UpdateProfile;
+import com.mauriciotogneri.watchfacesectors.ui.Renderer;
 
 import java.lang.ref.WeakReference;
 

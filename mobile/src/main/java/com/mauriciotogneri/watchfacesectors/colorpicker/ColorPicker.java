@@ -10,8 +10,8 @@ import android.view.View;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 
-import com.mauriciotogneri.watchfacesectors.ColorDisplayer;
 import com.mauriciotogneri.watchfacesectors.R;
+import com.mauriciotogneri.watchfacesectors.widgets.ColorDisplayer;
 
 public class ColorPicker
 {

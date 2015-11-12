@@ -69,7 +69,7 @@
             style="@style/main_label"
             android:text="@string/main.label.timeFontColor"/>
 
-        <com.mauriciotogneri.watchfacesectors.ColorDisplayer
+        <com.mauriciotogneri.watchfacesectors.widgets.ColorDisplayer
             android:id="@+id/timeFontColor"
             style="@style/main_colorDisplayer"/>
 
@@ -97,7 +97,7 @@
             style="@style/main_label"
             android:text="@string/main.label.timeBorderColor"/>
 
-        <com.mauriciotogneri.watchfacesectors.ColorDisplayer
+        <com.mauriciotogneri.watchfacesectors.widgets.ColorDisplayer
             android:id="@+id/timeBorderColor"
             style="@style/main_colorDisplayer"/>
 

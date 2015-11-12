@@ -1,4 +1,4 @@
-package com.mauriciotogneri.watchfacesectors;
+package com.mauriciotogneri.watchfacesectors.broadcast;
 
 public class BroadcastApi
 {

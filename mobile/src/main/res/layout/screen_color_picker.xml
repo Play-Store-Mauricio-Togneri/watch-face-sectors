@@ -28,7 +28,7 @@
         android:max="255"
         android:paddingBottom="15dp"/>
 
-    <com.mauriciotogneri.watchfacesectors.ColorDisplayer
+    <com.mauriciotogneri.watchfacesectors.widgets.ColorDisplayer
         android:id="@+id/resultColor"
         android:layout_width="64dp"
         android:layout_height="64dp"

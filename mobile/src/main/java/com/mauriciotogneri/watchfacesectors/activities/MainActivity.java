@@ -9,10 +9,10 @@ import com.mauriciotogneri.watchfacesectors.MessageApi.Paths;
 import com.mauriciotogneri.watchfacesectors.Profile;
 import com.mauriciotogneri.watchfacesectors.R;
 import com.mauriciotogneri.watchfacesectors.Serializer;
-import com.mauriciotogneri.watchfacesectors.WearableConnectivity;
-import com.mauriciotogneri.watchfacesectors.WearableConnectivity.OnDeviceNodeDetected;
-import com.mauriciotogneri.watchfacesectors.WearableConnectivity.WearableEvents;
 import com.mauriciotogneri.watchfacesectors.colorpicker.ColorPicker;
+import com.mauriciotogneri.watchfacesectors.utils.WearableConnectivity;
+import com.mauriciotogneri.watchfacesectors.utils.WearableConnectivity.OnDeviceNodeDetected;
+import com.mauriciotogneri.watchfacesectors.utils.WearableConnectivity.WearableEvents;
 import com.mauriciotogneri.watchfacesectors.view.MainView;
 import com.mauriciotogneri.watchfacesectors.view.MainViewObserver;
 
@@ -51,7 +51,7 @@ public class MainActivity extends Activity implements WearableEvents, MainViewOb
                 else
                 {
                     // TODO
-                    //Toast.makeText(MainActivity.this, "NOT CONNECTED!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "NOT CONNECTED!", Toast.LENGTH_SHORT).show();
                 }
             }
         });

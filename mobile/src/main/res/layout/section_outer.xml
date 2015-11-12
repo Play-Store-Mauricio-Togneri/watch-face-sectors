@@ -38,7 +38,7 @@
             style="@style/main_label"
             android:text="@string/main.label.outerSectorColor"/>
 
-        <com.mauriciotogneri.watchfacesectors.ColorDisplayer
+        <com.mauriciotogneri.watchfacesectors.widgets.ColorDisplayer
             android:id="@+id/outerSectorColor"
             style="@style/main_colorDisplayer"/>
 

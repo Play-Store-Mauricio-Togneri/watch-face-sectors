@@ -1,9 +1,11 @@
-package com.mauriciotogneri.watchfacesectors;
+package com.mauriciotogneri.watchfacesectors.ui;
 
 import android.graphics.Paint;
 import android.graphics.Paint.Align;
 import android.graphics.Paint.Style;
 import android.graphics.Typeface;
+
+import com.mauriciotogneri.watchfacesectors.Profile;
 
 public class ProfileWrapper
 {

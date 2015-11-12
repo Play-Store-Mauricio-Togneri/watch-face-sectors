@@ -7,7 +7,7 @@
         style="@style/main_label"
         android:text="@string/main.label.backgroundColor"/>
 
-    <com.mauriciotogneri.watchfacesectors.ColorDisplayer
+    <com.mauriciotogneri.watchfacesectors.widgets.ColorDisplayer
         android:id="@+id/backgroundColor"
         style="@style/main_colorDisplayer"/>
 

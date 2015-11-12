@@ -1,4 +1,4 @@
-package com.mauriciotogneri.watchfacesectors;
+package com.mauriciotogneri.watchfacesectors.ui;
 
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -6,6 +6,8 @@ import android.graphics.Path;
 import android.graphics.Rect;
 import android.graphics.RectF;
 
+import com.mauriciotogneri.watchfacesectors.ClockHandType;
+import com.mauriciotogneri.watchfacesectors.Profile;
 import com.mauriciotogneri.watchfacesectors.formats.DateFormat;
 import com.mauriciotogneri.watchfacesectors.formats.TimeFormat;
 

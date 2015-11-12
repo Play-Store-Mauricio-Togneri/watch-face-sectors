@@ -56,7 +56,7 @@
             style="@style/main_label"
             android:text="@string/main.label.minutesMarkColor"/>
 
-        <com.mauriciotogneri.watchfacesectors.ColorDisplayer
+        <com.mauriciotogneri.watchfacesectors.widgets.ColorDisplayer
             android:id="@+id/minutesMarkColor"
             style="@style/main_colorDisplayer"/>
 
