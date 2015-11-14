@@ -123,7 +123,7 @@ public class Renderer
 
         if (profileWrapper.profile.timeOn)
         {
-            String text = TimeFormat.formatTime(profileWrapper.profile.timeFormat, calendarHours, calendarMinutes);
+            String text = TimeFormat.formatTime(profileWrapper.profile.timeFormat, calendar);
             float timePosition = bounds.width() * ((10f - profileWrapper.profile.timePosition) / 10f);
 
             if (profileWrapper.profile.timeBorderWidth > 0)
