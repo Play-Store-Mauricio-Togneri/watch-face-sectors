@@ -2,6 +2,8 @@ package com.mauriciotogneri.watchfacesectors.activities;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.View;
 import android.widget.Toast;
 
@@ -50,8 +52,7 @@ public class MainActivity extends Activity implements WearableEvents, MainViewOb
                 }
                 else
                 {
-                    // TODO
-                    Toast.makeText(MainActivity.this, "NOT CONNECTED!", Toast.LENGTH_SHORT).show();
+                    onConnectedFail();
                 }
             }
         });
@@ -60,8 +61,20 @@ public class MainActivity extends Activity implements WearableEvents, MainViewOb
     @Override
     public void onConnectedFail()
     {
-        // TODO
-        Toast.makeText(this, "NOT CONNECTED!", Toast.LENGTH_SHORT).show();
+        showToast(getString(R.string.main_error_connectionFail));
+    }
+
+    private void showToast(final String message)
+    {
+        Handler handler = new Handler(Looper.getMainLooper());
+        handler.post(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override

@@ -44,4 +44,6 @@
 
     <string name="main.button.updateProfile">Update</string>
 
+    <string name="main.error.connectionFail">Error connecting to smartwatch</string>
+
 </resources>

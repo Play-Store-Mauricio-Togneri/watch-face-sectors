@@ -22,7 +22,8 @@ import java.lang.ref.WeakReference;
 
 public class WatchFaceService extends CanvasWatchFaceService
 {
-    private static final long INTERACTIVE_UPDATE_RATE_MS = 100;
+    private static final int UPDATE_RATE_INTERACTIVE_MODE = 100; // in milliseconds
+    private static final int UPDATE_RATE_AMBIENT_MODE = 1000 * 60; // in milliseconds
 
     private static final int MSG_UPDATE_TIME = 0;
 
@@ -36,7 +37,6 @@ public class WatchFaceService extends CanvasWatchFaceService
     {
         private final Handler updateTimeHandler = new EngineHandler(this);
 
-        private boolean isAmbientMode;
         private Renderer renderer;
 
         /**
@@ -82,7 +82,7 @@ public class WatchFaceService extends CanvasWatchFaceService
         @Override
         public void onDraw(Canvas canvas, Rect bounds)
         {
-            renderer.onDraw(canvas, bounds);
+            renderer.onDraw(canvas, bounds, isInAmbientMode());
         }
 
         @Override
@@ -112,26 +112,13 @@ public class WatchFaceService extends CanvasWatchFaceService
         }
 
         @Override
-        public void onTimeTick()
-        {
-            super.onTimeTick();
-
-            invalidate();
-        }
-
-        @Override
         public void onAmbientModeChanged(boolean inAmbientMode)
         {
             super.onAmbientModeChanged(inAmbientMode);
 
-            if (isAmbientMode != inAmbientMode)
-            {
-                isAmbientMode = inAmbientMode;
+            renderer.inAmbientMode(inAmbientMode, lowBitAmbient);
 
-                renderer.inAmbientMode(inAmbientMode, lowBitAmbient);
-
-                invalidate();
-            }
+            invalidate();
 
             // Whether the timer should be running depends on whether we're visible (as well as
             // whether we're in ambient mode), so we may need to start or stop the timer.
@@ -146,34 +133,34 @@ public class WatchFaceService extends CanvasWatchFaceService
         {
             updateTimeHandler.removeMessages(MSG_UPDATE_TIME);
 
-            if (shouldTimerBeRunning())
+            if (isVisible())
             {
                 updateTimeHandler.sendEmptyMessage(MSG_UPDATE_TIME);
             }
         }
 
         /**
-         * Returns whether the {@link #updateTimeHandler} timer should be running. The timer should
-         * only run when we're visible and in interactive mode.
-         */
-        private boolean shouldTimerBeRunning()
-        {
-            return (isVisible() && !isInAmbientMode());
-        }
-
-        /**
-         * Handle updating the time periodically in interactive mode.
+         * Handle updating the time periodically.
          */
         private void handleUpdateTimeMessage()
         {
             invalidate();
 
-            if (shouldTimerBeRunning())
+            if (isInAmbientMode())
             {
-                long timeMs = System.currentTimeMillis();
-                long delayMs = INTERACTIVE_UPDATE_RATE_MS - (timeMs % INTERACTIVE_UPDATE_RATE_MS);
-                updateTimeHandler.sendEmptyMessageDelayed(MSG_UPDATE_TIME, delayMs);
+                sendDelayedMessage(UPDATE_RATE_AMBIENT_MODE);
             }
+            else
+            {
+                sendDelayedMessage(UPDATE_RATE_INTERACTIVE_MODE);
+            }
+        }
+
+        private void sendDelayedMessage(int updateRate)
+        {
+            long timeMs = System.currentTimeMillis();
+            long delayMs = updateRate - (timeMs % updateRate);
+            updateTimeHandler.sendEmptyMessageDelayed(MSG_UPDATE_TIME, delayMs);
         }
     }
 

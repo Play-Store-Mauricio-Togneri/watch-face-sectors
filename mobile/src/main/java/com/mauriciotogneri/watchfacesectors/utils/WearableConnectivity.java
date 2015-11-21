@@ -114,10 +114,10 @@ public class WearableConnectivity
                 }
                 catch (Exception e)
                 {
+                    onDeviceNodeDetected.onDevicesDetected(new String[0]);
+
                     e.printStackTrace();
                 }
-
-                onDeviceNodeDetected.onDevicesDetected(new String[0]);
             }
         });
     }

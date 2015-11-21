@@ -1,5 +1,6 @@
 package com.mauriciotogneri.watchfacesectors.ui;
 
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Paint.Align;
 import android.graphics.Paint.Style;
@@ -20,9 +21,12 @@ public class ProfileWrapper
     public Paint timeForegroundPaint;
     public Paint timeBorderPaint;
 
-    public Paint outerSectorPaint;
-    public Paint middleSectorPaint;
-    public Paint innerSectorPaint;
+    public Paint outerSectorPaintInteractive;
+    public Paint outerSectorPaintAmbient;
+    public Paint middleSectorPaintInteractive;
+    public Paint middleSectorPaintAmbient;
+    public Paint innerSectorPaintInteractive;
+    public Paint innerSectorPaintAmbient;
 
     private static final Typeface NORMAL_TYPEFACE = Typeface.create(Typeface.SANS_SERIF, Typeface.NORMAL);
 
@@ -53,9 +57,12 @@ public class ProfileWrapper
         timeBorderPaint.setStrokeWidth(profile.timeBorderWidth);
         timeBorderPaint.setTextSize(profile.timeFontSize);
 
-        outerSectorPaint = getOuterSectorPaint();
-        middleSectorPaint = getMiddleSectorPaint();
-        innerSectorPaint = getInnerSectorPaint();
+        outerSectorPaintInteractive = getOuterSectorPaint(false);
+        outerSectorPaintAmbient = getOuterSectorPaint(true);
+        middleSectorPaintInteractive = getMiddleSectorPaint(false);
+        middleSectorPaintAmbient = getMiddleSectorPaint(true);
+        innerSectorPaintInteractive = getInnerSectorPaint(false);
+        innerSectorPaintAmbient = getInnerSectorPaint(true);
 
         hoursMarkPaint = createHoursMarkPaint();
         hoursMarkPaint.setStrokeWidth(profile.hoursMarkWidth);
@@ -72,9 +79,12 @@ public class ProfileWrapper
         dateBorderPaint.setAntiAlias(value);
         timeForegroundPaint.setAntiAlias(value);
         timeBorderPaint.setAntiAlias(value);
-        outerSectorPaint.setAntiAlias(value);
-        middleSectorPaint.setAntiAlias(value);
-        innerSectorPaint.setAntiAlias(value);
+        outerSectorPaintInteractive.setAntiAlias(value);
+        outerSectorPaintAmbient.setAntiAlias(value);
+        middleSectorPaintInteractive.setAntiAlias(value);
+        middleSectorPaintAmbient.setAntiAlias(value);
+        innerSectorPaintInteractive.setAntiAlias(value);
+        innerSectorPaintAmbient.setAntiAlias(value);
         hoursMarkPaint.setAntiAlias(value);
         minutesMarkPaint.setAntiAlias(value);
     }
@@ -105,32 +115,56 @@ public class ProfileWrapper
 
     // =============================================================================================
 
-    private Paint getOuterSectorPaint()
+    private Paint getOuterSectorPaint(boolean ambient)
     {
         Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
         paint.setAntiAlias(true);
         paint.setStyle(Style.FILL);
-        paint.setColor(profile.outerSectorColor);
+
+        if (ambient)
+        {
+            paint.setColor(getGrayscaleColor(profile.outerSectorColor));
+        }
+        else
+        {
+            paint.setColor(profile.outerSectorColor);
+        }
 
         return paint;
     }
 
-    private Paint getMiddleSectorPaint()
+    private Paint getMiddleSectorPaint(boolean ambient)
     {
         Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
         paint.setAntiAlias(true);
         paint.setStyle(Style.FILL);
-        paint.setColor(profile.middleSectorColor);
+
+        if (ambient)
+        {
+            paint.setColor(getGrayscaleColor(profile.middleSectorColor));
+        }
+        else
+        {
+            paint.setColor(profile.middleSectorColor);
+        }
 
         return paint;
     }
 
-    private Paint getInnerSectorPaint()
+    private Paint getInnerSectorPaint(boolean ambient)
     {
         Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
         paint.setAntiAlias(true);
         paint.setStyle(Style.FILL);
-        paint.setColor(profile.innerSectorColor);
+
+        if (ambient)
+        {
+            paint.setColor(getGrayscaleColor(profile.innerSectorColor));
+        }
+        else
+        {
+            paint.setColor(profile.innerSectorColor);
+        }
 
         return paint;
     }
@@ -153,5 +187,18 @@ public class ProfileWrapper
         paint.setStyle(Style.FILL_AND_STROKE);
 
         return paint;
+    }
+
+    // =============================================================================================
+
+    private int getGrayscaleColor(int color)
+    {
+        int red = Color.red(color);
+        int green = Color.green(color);
+        int blue = Color.blue(color);
+
+        int average = (red + green + blue) / 3;
+
+        return Color.argb(255, average, average, average);
     }
 }

@@ -45,7 +45,7 @@ public class Profile implements Serializable
     public String dateFormat = DateFormat.TYPE_1;
     public float datePosition = 1.5f;
 
-    public float dateFontSize = 22;
+    public float dateFontSize = 20;
     public int dateFontColor = Color.argb(255, 220, 220, 220);
 
     public float dateBorderWidth = 1;
@@ -55,7 +55,7 @@ public class Profile implements Serializable
 
     public boolean timeOn = true;
     public String timeFormat = TimeFormat.TYPE_24H;
-    public float timePosition = 2.25f;
+    public float timePosition = 2.2f;
 
     public float timeFontSize = 30;
     public int timeFontColor = Color.argb(255, 220, 220, 220);
