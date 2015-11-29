@@ -14,7 +14,6 @@ import com.mauriciotogneri.watchfacesectors.formats.TimeFormat;
 
 import java.util.Calendar;
 
-// http://developer.android.com/intl/zh-tw/training/wearables/watch-faces/drawing.html
 public class Renderer
 {
     private final ProfileWrapper profileWrapper;
