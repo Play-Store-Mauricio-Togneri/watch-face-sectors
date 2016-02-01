@@ -13,6 +13,6 @@ RELEASE_STORE_PASSWORD = ???
 RELEASE_STORE_FILE     = ???
 ```
 
-<a href="https://play.google.com/store/apps/details?id=com.mauriciotogneri.watchfacesectors">
+<a href="https://play.google.com/store/apps/details?id=com.mauriciotogneri.watchfacesectors" target="_blank">
 	<img src="https://play.google.com/intl/en_us/badges/images/apps/en-play-badge.png" align="left" height="72" >
 </a>
