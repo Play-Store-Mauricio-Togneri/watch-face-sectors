@@ -13,4 +13,4 @@ RELEASE_STORE_PASSWORD = ???
 RELEASE_STORE_FILE     = ???
 ```
 
-[![Get it on Google Play](https://developer.android.com/images/brand/en_generic_rgb_wo_60.png)](https://play.google.com/store/apps/details?id=com.mauriciotogneri.watchfacesectors)
+[![Get it on Google Play](https://play.google.com/intl/en_us/badges/images/apps/en-play-badge.png)](https://play.google.com/store/apps/details?id=com.mauriciotogneri.watchfacesectors)
